@@ -35,9 +35,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/databaseTimelapseWrapper.o \
 	${OBJECTDIR}/main_databaseCenter_server.o \
 	${OBJECTDIR}/thrift_gen_code/databaseCenter.o \
-	${OBJECTDIR}/thrift_gen_code/databaseTimelapseWrapper.o \
 	${OBJECTDIR}/thrift_gen_code/demo_monitor_constants.o \
 	${OBJECTDIR}/thrift_gen_code/demo_monitor_types.o
 
@@ -66,6 +66,11 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/data_center: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/data_center ${OBJECTFILES} ${LDLIBSOPTIONS}
 
+${OBJECTDIR}/databaseTimelapseWrapper.o: databaseTimelapseWrapper.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/databaseTimelapseWrapper.o databaseTimelapseWrapper.cpp
+
 ${OBJECTDIR}/main_databaseCenter_server.o: main_databaseCenter_server.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -75,11 +80,6 @@ ${OBJECTDIR}/thrift_gen_code/databaseCenter.o: thrift_gen_code/databaseCenter.cp
 	${MKDIR} -p ${OBJECTDIR}/thrift_gen_code
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift_gen_code/databaseCenter.o thrift_gen_code/databaseCenter.cpp
-
-${OBJECTDIR}/thrift_gen_code/databaseTimelapseWrapper.o: thrift_gen_code/databaseTimelapseWrapper.cpp 
-	${MKDIR} -p ${OBJECTDIR}/thrift_gen_code
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift_gen_code/databaseTimelapseWrapper.o thrift_gen_code/databaseTimelapseWrapper.cpp
 
 ${OBJECTDIR}/thrift_gen_code/demo_monitor_constants.o: thrift_gen_code/demo_monitor_constants.cpp 
 	${MKDIR} -p ${OBJECTDIR}/thrift_gen_code

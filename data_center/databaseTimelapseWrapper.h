@@ -17,6 +17,7 @@
 #include <kchashdb.h>
 #include <string>
 #include <vector>
+#include "thrift_gen_code/demo_monitor_types.h"
 
 class DatabaseTimelapseWrapper {
 private:
@@ -24,6 +25,8 @@ private:
     kyotocabinet::HashDB myDb;
 public:
     DatabaseTimelapseWrapper();
+    std::string dataSerialization(::demomonitor::dataCollector temp);
+    ::demomonitor::dataCollector dataDeserialization(std::string temp);
     std::string getDatabaseName();
     std::vector<float> getValue(std::string key);
     bool isValueAvailable(std::string key);

@@ -4,7 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>thrift_gen_code/databaseTimelapseWrapper.h</itemPath>
+      <itemPath>databaseTimelapseWrapper.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -13,7 +13,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>thrift_gen_code/databaseTimelapseWrapper.cpp</itemPath>
+      <itemPath>databaseTimelapseWrapper.cpp</itemPath>
       <itemPath>main_databaseCenter_server.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="thrift_gen_code"
@@ -59,6 +59,10 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="databaseTimelapseWrapper.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="databaseTimelapseWrapper.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="main_databaseCenter_server.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="thrift_gen_code/databaseCenter.cpp" ex="false" tool="1" flavor2="0">
@@ -66,16 +70,6 @@
       <item path="thrift_gen_code/databaseCenter.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="thrift_gen_code/databaseCenter_server.skeleton.cpp.bak"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="thrift_gen_code/databaseTimelapseWrapper.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="thrift_gen_code/databaseTimelapseWrapper.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -121,6 +115,10 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="databaseTimelapseWrapper.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="databaseTimelapseWrapper.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="main_databaseCenter_server.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="thrift_gen_code/databaseCenter.cpp" ex="false" tool="1" flavor2="0">
@@ -128,16 +126,6 @@
       <item path="thrift_gen_code/databaseCenter.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="thrift_gen_code/databaseCenter_server.skeleton.cpp.bak"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
-      <item path="thrift_gen_code/databaseTimelapseWrapper.cpp"
-            ex="false"
-            tool="1"
-            flavor2="0">
-      </item>
-      <item path="thrift_gen_code/databaseTimelapseWrapper.h"
             ex="false"
             tool="3"
             flavor2="0">
