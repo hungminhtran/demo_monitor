@@ -1,3 +1,4 @@
 */dist/*
 */build/*
 *.kch
+*/.fuse_hidden*
