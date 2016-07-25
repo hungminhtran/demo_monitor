@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="97">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <itemPath>get_computer_info.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="sigar" displayName="sigar" projectFiles="true">
+      <itemPath>sigar/linux_sigar.c</itemPath>
+      <itemPath>sigar/sigar.c</itemPath>
+      <itemPath>sigar/sigar.h</itemPath>
+      <itemPath>sigar/sigar_cache.c</itemPath>
+      <itemPath>sigar/sigar_fileinfo.c</itemPath>
+      <itemPath>sigar/sigar_fileinfo.h</itemPath>
+      <itemPath>sigar/sigar_format.c</itemPath>
+      <itemPath>sigar/sigar_format.h</itemPath>
+      <itemPath>sigar/sigar_getline.c</itemPath>
+      <itemPath>sigar/sigar_getline.h</itemPath>
+      <itemPath>sigar/sigar_log.h</itemPath>
+      <itemPath>sigar/sigar_os.h</itemPath>
+      <itemPath>sigar/sigar_private.h</itemPath>
+      <itemPath>sigar/sigar_ptql.c</itemPath>
+      <itemPath>sigar/sigar_ptql.h</itemPath>
+      <itemPath>sigar/sigar_signal.c</itemPath>
+      <itemPath>sigar/sigar_util.c</itemPath>
+      <itemPath>sigar/sigar_util.h</itemPath>
+      <itemPath>sigar/sigar_version.c.in</itemPath>
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <itemPath>get_computer_info.cpp</itemPath>
+      <itemPath>main_push_monitor_data_client.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="thrift_gen_code"
+                   displayName="thrift_gen_code"
+                   projectFiles="true">
+      <itemPath>thrift_gen_code/databaseCenter.cpp</itemPath>
+      <itemPath>thrift_gen_code/databaseCenter.h</itemPath>
+      <itemPath>thrift_gen_code/demo_monitor_constants.cpp</itemPath>
+      <itemPath>thrift_gen_code/demo_monitor_constants.h</itemPath>
+      <itemPath>thrift_gen_code/demo_monitor_types.cpp</itemPath>
+      <itemPath>thrift_gen_code/demo_monitor_types.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>.</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <linkerTool>
+          <commandLine>-lthrift -lboost_system</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="get_computer_info.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="get_computer_info.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main_push_monitor_data_client.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="sigar/linux_sigar.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sigar/sigar.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sigar/sigar.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="sigar/sigar_cache.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sigar/sigar_fileinfo.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sigar/sigar_fileinfo.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="sigar/sigar_format.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sigar/sigar_format.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="sigar/sigar_getline.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sigar/sigar_getline.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="sigar/sigar_log.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="sigar/sigar_os.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="sigar/sigar_private.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="sigar/sigar_ptql.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sigar/sigar_ptql.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="sigar/sigar_signal.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sigar/sigar_util.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sigar/sigar_util.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="sigar/sigar_version.c.in" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="thrift_gen_code/databaseCenter.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="thrift_gen_code/databaseCenter.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="thrift_gen_code/demo_monitor_constants.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="thrift_gen_code/demo_monitor_constants.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="thrift_gen_code/demo_monitor_types.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="thrift_gen_code/demo_monitor_types.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+      </compileType>
+      <item path="get_computer_info.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="get_computer_info.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main_push_monitor_data_client.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="sigar/linux_sigar.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sigar/sigar.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sigar/sigar.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="sigar/sigar_cache.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sigar/sigar_fileinfo.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sigar/sigar_fileinfo.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="sigar/sigar_format.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sigar/sigar_format.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="sigar/sigar_getline.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sigar/sigar_getline.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="sigar/sigar_log.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="sigar/sigar_os.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="sigar/sigar_private.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="sigar/sigar_ptql.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sigar/sigar_ptql.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="sigar/sigar_signal.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sigar/sigar_util.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="sigar/sigar_util.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="sigar/sigar_version.c.in" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="thrift_gen_code/databaseCenter.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="thrift_gen_code/databaseCenter.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="thrift_gen_code/demo_monitor_constants.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="thrift_gen_code/demo_monitor_constants.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="thrift_gen_code/demo_monitor_types.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="thrift_gen_code/demo_monitor_types.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>
