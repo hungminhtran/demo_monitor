@@ -39,7 +39,7 @@ int main() {
         client->debug();
 #else
         while (1) {
-            sleep(1);
+            sleep(8);
             cpu_us = getComputerInfo.get_current_cpu_usage(METRIC::CPU_USR);
             cpu_sy = getComputerInfo.get_current_cpu_usage(METRIC::CPU_SYS);
             for (int i = 0; i < cpu_us.size(); i++) {
@@ -54,7 +54,7 @@ int main() {
                 temp.__set_value(float(cpu_us[i]));
                 client->send_data_to_server(temp);
             }
-            client->debug();
+//            client->debug();
         }
 #endif   
         transport->close();

@@ -2,3 +2,4 @@
 */build/*
 *.kch
 */.fuse_hidden*
+/java_jetty_monitor_visualization/nbproject/private/

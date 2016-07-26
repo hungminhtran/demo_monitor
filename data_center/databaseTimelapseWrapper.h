@@ -18,6 +18,7 @@
 #include <string>
 #include <vector>
 #include "../thrift_gen_code/demo_monitor_types.h"
+const std::string DB_NAME = "/home/hungminhtran/xxx___demomonitorTimelapseDb";
 
 class DatabaseTimelapseWrapper {
 private:

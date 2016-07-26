@@ -28,10 +28,10 @@ using namespace ::apache::thrift::protocol;
 using namespace ::apache::thrift::transport;
 
 DatabaseTimelapseWrapper::DatabaseTimelapseWrapper() {
-    this->databaseName = "xxx___demomonitorTimelapseDb";
+    this->databaseName = DB_NAME;
     bool status = this->myDb.open(this->databaseName, HashDB::OWRITER | HashDB::OCREATE);
     if (!status) {
-        std::cerr << "open database error" << std::endl;
+        std::cerr << "open database " << DB_NAME << " error " << std::endl;
     }
     return;
 }
@@ -106,8 +106,7 @@ bool DatabaseTimelapseWrapper::appendValue(std::string key, float value, std::st
     serialized = DatabaseTimelapseWrapper::dataSerialization(temp);
     if (status) {
         return this->myDb.set(key, serialized);
-    }
-    else {
+    } else {
         return this->myDb.add(key, serialized);
     }
 }
@@ -124,11 +123,11 @@ DatabaseTimelapseWrapper::~DatabaseTimelapseWrapper() {
 }
 
 void DatabaseTimelapseWrapper::printAllElement() {
-    
+
     DB::Cursor* cur = this->myDb.cursor();
     cur->jump();
     std::string ckey, cvalue;
-    std::cout<<"all database element"<<std::endl;
+    std::cout << "all database element" << std::endl;
     while (cur->get(&ckey, &cvalue, true)) {
         std::cout << ckey << ":" << DatabaseTimelapseWrapper::dataDeserialization(cvalue) << std::endl;
     }
