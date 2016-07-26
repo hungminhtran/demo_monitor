@@ -21,9 +21,9 @@ demo_monitorConstants::demo_monitorConstants() {
   METRIC_STR.insert(std::make_pair((METRIC::type)7, "inspeed"));
   METRIC_STR.insert(std::make_pair((METRIC::type)8, "outspeed"));
 
-  TAG_STR.insert(std::make_pair((TAG::type)2, "disk"));
-  TAG_STR.insert(std::make_pair((TAG::type)0, "cpu"));
   TAG_STR.insert(std::make_pair((TAG::type)1, "ram"));
+  TAG_STR.insert(std::make_pair((TAG::type)0, "cpu"));
+  TAG_STR.insert(std::make_pair((TAG::type)2, "disk"));
   TAG_STR.insert(std::make_pair((TAG::type)3, "network"));
 
 }

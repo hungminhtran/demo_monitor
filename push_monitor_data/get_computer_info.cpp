@@ -51,11 +51,11 @@ boost::ptr_vector<float> get_computer_info::get_current_cpu_usage(METRIC::type t
             switch (t) {
                 case METRIC::CPU_SYS:
                     result.push_back(new float((tcpulist.data[i].sys - this->lastCpuGet.data[i].sys) / total * 100));
-//                    cout << "sys " << tcpulist.data[i].sys << " " << this->lastCpuGet.data[i].sys << " " << total << endl;
+                    //                    cout << "sys " << tcpulist.data[i].sys << " " << this->lastCpuGet.data[i].sys << " " << total << endl;
                     break;
                 case METRIC::CPU_USR:
                     result.push_back(new float((tcpulist.data[i].user - this->lastCpuGet.data[i].user) / total * 100));
-//                    cout << "user " << tcpulist.data[i].user << " " << this->lastCpuGet.data[i].user << " " << total << endl;
+                    //                    cout << "user " << tcpulist.data[i].user << " " << this->lastCpuGet.data[i].user << " " << total << endl;
                     break;
             }
     }

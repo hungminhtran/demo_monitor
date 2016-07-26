@@ -117,9 +117,8 @@ inline std::ostream& operator<<(std::ostream& out, const DataCollector& obj)
 }
 
 typedef struct _TimeLapseData__isset {
-  _TimeLapseData__isset() : beginTime(false), totalElements(false), values(false) {}
-  bool beginTime :1;
-  bool totalElements :1;
+  _TimeLapseData__isset() : beginDateTime(false), values(false) {}
+  bool beginDateTime :1;
   bool values :1;
 } _TimeLapseData__isset;
 
@@ -128,27 +127,22 @@ class TimeLapseData {
 
   TimeLapseData(const TimeLapseData&);
   TimeLapseData& operator=(const TimeLapseData&);
-  TimeLapseData() : beginTime(), totalElements(0) {
+  TimeLapseData() : beginDateTime() {
   }
 
   virtual ~TimeLapseData() throw();
-  std::string beginTime;
-  int32_t totalElements;
+  std::string beginDateTime;
   std::vector<double>  values;
 
   _TimeLapseData__isset __isset;
 
-  void __set_beginTime(const std::string& val);
-
-  void __set_totalElements(const int32_t val);
+  void __set_beginDateTime(const std::string& val);
 
   void __set_values(const std::vector<double> & val);
 
   bool operator == (const TimeLapseData & rhs) const
   {
-    if (!(beginTime == rhs.beginTime))
-      return false;
-    if (!(totalElements == rhs.totalElements))
+    if (!(beginDateTime == rhs.beginDateTime))
       return false;
     if (!(values == rhs.values))
       return false;

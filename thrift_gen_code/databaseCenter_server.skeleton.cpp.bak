@@ -22,14 +22,19 @@ class databaseCenterHandler : virtual public databaseCenterIf {
     // Your initialization goes here
   }
 
-  void send_data_to_server(const DataCollector& dat, const std::string& beginTime) {
+  void send_data_to_server(const DataCollector& dat) {
     // Your implementation goes here
     printf("send_data_to_server\n");
   }
 
-  void recieve_data_from_server(TimeLapseData& _return, const std::string& beginTime, const std::string& endTime) {
+  void recieve_data_from_server(TimeLapseData& _return, const DataCollector& dat, const std::string& beginTime, const std::string& endTime) {
     // Your implementation goes here
     printf("recieve_data_from_server\n");
+  }
+
+  void debug() {
+    // Your implementation goes here
+    printf("debug\n");
   }
 
 };

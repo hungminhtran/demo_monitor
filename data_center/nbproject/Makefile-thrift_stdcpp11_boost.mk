@@ -23,7 +23,7 @@ AS=as
 # Macros
 CND_PLATFORM=GNU-Linux
 CND_DLIB_EXT=so
-CND_CONF=Release
+CND_CONF=thrift_stdcpp11_boost
 CND_DISTDIR=dist
 CND_BUILDDIR=build
 
@@ -56,8 +56,8 @@ TESTOBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=
-CXXFLAGS=
+CCFLAGS=-std=c++11
+CXXFLAGS=-std=c++11
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -74,32 +74,32 @@ LDLIBSOPTIONS=
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/data_center: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/data_center ${OBJECTFILES} ${LDLIBSOPTIONS}
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/data_center ${OBJECTFILES} ${LDLIBSOPTIONS} -lthrift -lboost_system -lkyotocabinet
 
 ${OBJECTDIR}/_ext/87989ef3/databaseCenter.o: ../thrift_gen_code/databaseCenter.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/87989ef3
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/87989ef3/databaseCenter.o ../thrift_gen_code/databaseCenter.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/87989ef3/databaseCenter.o ../thrift_gen_code/databaseCenter.cpp
 
 ${OBJECTDIR}/_ext/87989ef3/demo_monitor_constants.o: ../thrift_gen_code/demo_monitor_constants.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/87989ef3
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/87989ef3/demo_monitor_constants.o ../thrift_gen_code/demo_monitor_constants.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/87989ef3/demo_monitor_constants.o ../thrift_gen_code/demo_monitor_constants.cpp
 
 ${OBJECTDIR}/_ext/87989ef3/demo_monitor_types.o: ../thrift_gen_code/demo_monitor_types.cpp 
 	${MKDIR} -p ${OBJECTDIR}/_ext/87989ef3
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/87989ef3/demo_monitor_types.o ../thrift_gen_code/demo_monitor_types.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/87989ef3/demo_monitor_types.o ../thrift_gen_code/demo_monitor_types.cpp
 
 ${OBJECTDIR}/databaseTimelapseWrapper.o: databaseTimelapseWrapper.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/databaseTimelapseWrapper.o databaseTimelapseWrapper.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/databaseTimelapseWrapper.o databaseTimelapseWrapper.cpp
 
 ${OBJECTDIR}/main_databaseCenter_server.o: main_databaseCenter_server.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main_databaseCenter_server.o main_databaseCenter_server.cpp
+	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main_databaseCenter_server.o main_databaseCenter_server.cpp
 
 # Subprojects
 .build-subprojects:
@@ -116,7 +116,7 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/databaseTLWrapper_test.o ${OBJECTFILES
 ${TESTDIR}/tests/databaseTLWrapper_test.o: tests/databaseTLWrapper_test.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/databaseTLWrapper_test.o tests/databaseTLWrapper_test.cpp
+	$(COMPILE.cc) -g -I. -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/databaseTLWrapper_test.o tests/databaseTLWrapper_test.cpp
 
 
 ${OBJECTDIR}/_ext/87989ef3/databaseCenter_nomain.o: ${OBJECTDIR}/_ext/87989ef3/databaseCenter.o ../thrift_gen_code/databaseCenter.cpp 
@@ -127,7 +127,7 @@ ${OBJECTDIR}/_ext/87989ef3/databaseCenter_nomain.o: ${OBJECTDIR}/_ext/87989ef3/d
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/87989ef3/databaseCenter_nomain.o ../thrift_gen_code/databaseCenter.cpp;\
+	    $(COMPILE.cc) -g -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/87989ef3/databaseCenter_nomain.o ../thrift_gen_code/databaseCenter.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/_ext/87989ef3/databaseCenter.o ${OBJECTDIR}/_ext/87989ef3/databaseCenter_nomain.o;\
 	fi
@@ -140,7 +140,7 @@ ${OBJECTDIR}/_ext/87989ef3/demo_monitor_constants_nomain.o: ${OBJECTDIR}/_ext/87
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/87989ef3/demo_monitor_constants_nomain.o ../thrift_gen_code/demo_monitor_constants.cpp;\
+	    $(COMPILE.cc) -g -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/87989ef3/demo_monitor_constants_nomain.o ../thrift_gen_code/demo_monitor_constants.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/_ext/87989ef3/demo_monitor_constants.o ${OBJECTDIR}/_ext/87989ef3/demo_monitor_constants_nomain.o;\
 	fi
@@ -153,7 +153,7 @@ ${OBJECTDIR}/_ext/87989ef3/demo_monitor_types_nomain.o: ${OBJECTDIR}/_ext/87989e
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/87989ef3/demo_monitor_types_nomain.o ../thrift_gen_code/demo_monitor_types.cpp;\
+	    $(COMPILE.cc) -g -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/87989ef3/demo_monitor_types_nomain.o ../thrift_gen_code/demo_monitor_types.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/_ext/87989ef3/demo_monitor_types.o ${OBJECTDIR}/_ext/87989ef3/demo_monitor_types_nomain.o;\
 	fi
@@ -166,7 +166,7 @@ ${OBJECTDIR}/databaseTimelapseWrapper_nomain.o: ${OBJECTDIR}/databaseTimelapseWr
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/databaseTimelapseWrapper_nomain.o databaseTimelapseWrapper.cpp;\
+	    $(COMPILE.cc) -g -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/databaseTimelapseWrapper_nomain.o databaseTimelapseWrapper.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/databaseTimelapseWrapper.o ${OBJECTDIR}/databaseTimelapseWrapper_nomain.o;\
 	fi
@@ -179,7 +179,7 @@ ${OBJECTDIR}/main_databaseCenter_server_nomain.o: ${OBJECTDIR}/main_databaseCent
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main_databaseCenter_server_nomain.o main_databaseCenter_server.cpp;\
+	    $(COMPILE.cc) -g -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main_databaseCenter_server_nomain.o main_databaseCenter_server.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/main_databaseCenter_server.o ${OBJECTDIR}/main_databaseCenter_server_nomain.o;\
 	fi

@@ -14,7 +14,10 @@
 #include "databaseTimelapseWrapper.h"
 #include <thrift/protocol/TBinaryProtocol.h>
 #include <thrift/transport/TBufferTransports.h>
+#include "../thrift_gen_code/demo_monitor_constants.h"
 
+#include <ctime>
+#include <sstream>
 
 using namespace kyotocabinet;
 using namespace ::demomonitor;
@@ -25,7 +28,7 @@ using namespace ::apache::thrift::protocol;
 using namespace ::apache::thrift::transport;
 
 DatabaseTimelapseWrapper::DatabaseTimelapseWrapper() {
-    this->databaseName = "demomonitorTimelapseDb";
+    this->databaseName = "xxx___demomonitorTimelapseDb";
     bool status = this->myDb.open(this->databaseName, HashDB::OWRITER | HashDB::OCREATE);
     if (!status) {
         std::cerr << "open database error" << std::endl;
@@ -53,9 +56,32 @@ TimeLapseData DatabaseTimelapseWrapper::dataDeserialization(std::string serializ
     return temp2;
 }
 
+std::string DatabaseTimelapseWrapper::get_current_datetime() {
+    time_t _time = time(0); // get time now
+    struct std::tm * _tnow = localtime(&_time);
+    std::ostringstream out;
+    out << _tnow->tm_year << " " << _tnow->tm_mon << " " << _tnow->tm_mday << " " << _tnow->tm_hour << " " << _tnow->tm_min << " " << _tnow->tm_sec;
+    return out.str();
+}
+
+std::string DatabaseTimelapseWrapper::parse_date(std::string datetime) {
+    std::istringstream instr(datetime);
+    struct std::tm _mytm;
+    instr >> _mytm.tm_year >> _mytm.tm_mon >> _mytm.tm_mday;
+    std::ostringstream out;
+    out << _mytm.tm_year << " " << _mytm.tm_mon << " " << _mytm.tm_mday;
+    return out.str();
+}
+
+std::string DatabaseTimelapseWrapper::getKeyFromData(::demomonitor::DataCollector dat, std::string datetime) {
+    std::ostringstream out;
+    std::string _tstring = ::demomonitor::g_demo_monitor_constants.TAG_STR.at(dat.tag);
+    out << _tstring << " " << dat.object << DatabaseTimelapseWrapper::parse_date(datetime);
+    return out.str();
+}
+
 bool DatabaseTimelapseWrapper::isValueAvailable(std::string key) {
-    std::string temp;
-    bool result = this->myDb.get(key, &temp);
+    bool result = this->myDb.check(key);
     return result;
 }
 
@@ -66,21 +92,24 @@ TimeLapseData DatabaseTimelapseWrapper::getValues(std::string key) {
     return result;
 }
 
-bool DatabaseTimelapseWrapper::appendValue(std::string key, float value, std::string beginTime) {
+bool DatabaseTimelapseWrapper::appendValue(std::string key, float value, std::string beginDateTime) {
     TimeLapseData temp;
     std::string serialized;
-    if (this->myDb.get(key, &serialized)) {
-        TimeLapseData temp = DatabaseTimelapseWrapper::dataDeserialization(serialized);
+    bool status = this->myDb.get(key, &serialized);
+    if (status) {
+        temp = DatabaseTimelapseWrapper::dataDeserialization(serialized);
         temp.values.push_back(value);
-        temp.totalElements++;
-    }
-    else {
-        temp.beginTime = beginTime;
-        temp.totalElements = 1;
+    } else {
+        temp.beginDateTime = beginDateTime;
         temp.values.push_back(value);
     }
     serialized = DatabaseTimelapseWrapper::dataSerialization(temp);
-    return this->myDb.set(key, serialized);
+    if (status) {
+        return this->myDb.set(key, serialized);
+    }
+    else {
+        return this->myDb.add(key, serialized);
+    }
 }
 
 bool DatabaseTimelapseWrapper::deleteElement(std::string key) {
@@ -94,3 +123,20 @@ DatabaseTimelapseWrapper::~DatabaseTimelapseWrapper() {
     return;
 }
 
+void DatabaseTimelapseWrapper::printAllElement() {
+    
+    DB::Cursor* cur = this->myDb.cursor();
+    cur->jump();
+    std::string ckey, cvalue;
+    std::cout<<"all database element"<<std::endl;
+    while (cur->get(&ckey, &cvalue, true)) {
+        std::cout << ckey << ":" << DatabaseTimelapseWrapper::dataDeserialization(cvalue) << std::endl;
+    }
+    delete cur;
+
+    return;
+}
+
+bool DatabaseTimelapseWrapper::clearDB() {
+    this->myDb.clear();
+}

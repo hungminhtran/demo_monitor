@@ -32,6 +32,12 @@
                    displayName="Test Files"
                    projectFiles="false"
                    kind="TEST_LOGICAL_FOLDER">
+      <logicalFolder name="f1"
+                     displayName="databaseTLWrapper_test"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/databaseTLWrapper_test.cpp</itemPath>
+      </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -104,7 +110,32 @@
       </item>
       <item path="databaseTimelapseWrapper.h" ex="false" tool="3" flavor2="0">
       </item>
+      <folder path="TestFiles">
+        <ccTool>
+          <commandLine>-std=c++11</commandLine>
+        </ccTool>
+        <linkerTool>
+          <commandLine>-lthrift -lboost_system -lkyotocabinet</commandLine>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
       <item path="main_databaseCenter_server.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/databaseTLWrapper_test.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -171,7 +202,192 @@
       </item>
       <item path="databaseTimelapseWrapper.h" ex="false" tool="3" flavor2="0">
       </item>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
       <item path="main_databaseCenter_server.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/databaseTLWrapper_test.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+    <conf name="thrift_stdcpp11_boost" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <commandLine>-std=c++11</commandLine>
+        </ccTool>
+        <linkerTool>
+          <commandLine>-lthrift -lboost_system -lkyotocabinet</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="../thrift_gen_code/.fuse_hidden0004ebe000000006"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../thrift_gen_code/databaseCenter.cpp"
+            ex="false"
+            tool="1"
+            flavor2="9">
+      </item>
+      <item path="../thrift_gen_code/databaseCenter.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../thrift_gen_code/databaseCenter_server.skeleton.cpp.bak"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../thrift_gen_code/demo_monitor_constants.cpp"
+            ex="false"
+            tool="1"
+            flavor2="9">
+      </item>
+      <item path="../thrift_gen_code/demo_monitor_constants.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../thrift_gen_code/demo_monitor_types.cpp"
+            ex="false"
+            tool="1"
+            flavor2="9">
+      </item>
+      <item path="../thrift_gen_code/demo_monitor_types.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="databaseTimelapseWrapper.cpp" ex="false" tool="1" flavor2="9">
+      </item>
+      <item path="databaseTimelapseWrapper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
+      <item path="main_databaseCenter_server.cpp" ex="false" tool="1" flavor2="9">
+      </item>
+      <item path="tests/databaseTLWrapper_test.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+    </conf>
+    <conf name="thrift_kyotocabinet_test" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <commandLine>-std=c++11</commandLine>
+        </ccTool>
+        <linkerTool>
+          <commandLine>-lthrift -lboost_system -lkyotocabinet</commandLine>
+        </linkerTool>
+      </compileType>
+      <item path="../thrift_gen_code/.fuse_hidden0004ebe000000006"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../thrift_gen_code/databaseCenter.cpp"
+            ex="false"
+            tool="1"
+            flavor2="9">
+      </item>
+      <item path="../thrift_gen_code/databaseCenter.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../thrift_gen_code/databaseCenter_server.skeleton.cpp.bak"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../thrift_gen_code/demo_monitor_constants.cpp"
+            ex="false"
+            tool="1"
+            flavor2="9">
+      </item>
+      <item path="../thrift_gen_code/demo_monitor_constants.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="../thrift_gen_code/demo_monitor_types.cpp"
+            ex="false"
+            tool="1"
+            flavor2="9">
+      </item>
+      <item path="../thrift_gen_code/demo_monitor_types.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="databaseTimelapseWrapper.cpp" ex="false" tool="1" flavor2="9">
+      </item>
+      <item path="databaseTimelapseWrapper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <folder path="TestFiles">
+        <ccTool>
+          <commandLine>-std=c++11</commandLine>
+        </ccTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerOptionItem>`pkg-config --libs thrift`</linkerOptionItem>
+            <linkerOptionItem>`pkg-config --libs kyotocabinet`</linkerOptionItem>
+          </linkerLibItems>
+          <commandLine>-lboost_system</commandLine>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
+      <item path="main_databaseCenter_server.cpp" ex="false" tool="1" flavor2="9">
+      </item>
+      <item path="tests/databaseTLWrapper_test.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
   </confs>

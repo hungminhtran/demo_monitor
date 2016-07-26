@@ -21,8 +21,9 @@ namespace demomonitor {
 class databaseCenterIf {
  public:
   virtual ~databaseCenterIf() {}
-  virtual void send_data_to_server(const DataCollector& dat, const std::string& beginTime) = 0;
-  virtual void recieve_data_from_server(TimeLapseData& _return, const std::string& beginTime, const std::string& endTime) = 0;
+  virtual void send_data_to_server(const DataCollector& dat) = 0;
+  virtual void recieve_data_from_server(TimeLapseData& _return, const DataCollector& dat, const std::string& beginTime, const std::string& endTime) = 0;
+  virtual void debug() = 0;
 };
 
 class databaseCenterIfFactory {
@@ -52,18 +53,20 @@ class databaseCenterIfSingletonFactory : virtual public databaseCenterIfFactory 
 class databaseCenterNull : virtual public databaseCenterIf {
  public:
   virtual ~databaseCenterNull() {}
-  void send_data_to_server(const DataCollector& /* dat */, const std::string& /* beginTime */) {
+  void send_data_to_server(const DataCollector& /* dat */) {
     return;
   }
-  void recieve_data_from_server(TimeLapseData& /* _return */, const std::string& /* beginTime */, const std::string& /* endTime */) {
+  void recieve_data_from_server(TimeLapseData& /* _return */, const DataCollector& /* dat */, const std::string& /* beginTime */, const std::string& /* endTime */) {
+    return;
+  }
+  void debug() {
     return;
   }
 };
 
 typedef struct _databaseCenter_send_data_to_server_args__isset {
-  _databaseCenter_send_data_to_server_args__isset() : dat(false), beginTime(false) {}
+  _databaseCenter_send_data_to_server_args__isset() : dat(false) {}
   bool dat :1;
-  bool beginTime :1;
 } _databaseCenter_send_data_to_server_args__isset;
 
 class databaseCenter_send_data_to_server_args {
@@ -71,24 +74,19 @@ class databaseCenter_send_data_to_server_args {
 
   databaseCenter_send_data_to_server_args(const databaseCenter_send_data_to_server_args&);
   databaseCenter_send_data_to_server_args& operator=(const databaseCenter_send_data_to_server_args&);
-  databaseCenter_send_data_to_server_args() : beginTime() {
+  databaseCenter_send_data_to_server_args() {
   }
 
   virtual ~databaseCenter_send_data_to_server_args() throw();
   DataCollector dat;
-  std::string beginTime;
 
   _databaseCenter_send_data_to_server_args__isset __isset;
 
   void __set_dat(const DataCollector& val);
 
-  void __set_beginTime(const std::string& val);
-
   bool operator == (const databaseCenter_send_data_to_server_args & rhs) const
   {
     if (!(dat == rhs.dat))
-      return false;
-    if (!(beginTime == rhs.beginTime))
       return false;
     return true;
   }
@@ -110,14 +108,14 @@ class databaseCenter_send_data_to_server_pargs {
 
   virtual ~databaseCenter_send_data_to_server_pargs() throw();
   const DataCollector* dat;
-  const std::string* beginTime;
 
   uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
 };
 
 typedef struct _databaseCenter_recieve_data_from_server_args__isset {
-  _databaseCenter_recieve_data_from_server_args__isset() : beginTime(false), endTime(false) {}
+  _databaseCenter_recieve_data_from_server_args__isset() : dat(false), beginTime(false), endTime(false) {}
+  bool dat :1;
   bool beginTime :1;
   bool endTime :1;
 } _databaseCenter_recieve_data_from_server_args__isset;
@@ -131,10 +129,13 @@ class databaseCenter_recieve_data_from_server_args {
   }
 
   virtual ~databaseCenter_recieve_data_from_server_args() throw();
+  DataCollector dat;
   std::string beginTime;
   std::string endTime;
 
   _databaseCenter_recieve_data_from_server_args__isset __isset;
+
+  void __set_dat(const DataCollector& val);
 
   void __set_beginTime(const std::string& val);
 
@@ -142,6 +143,8 @@ class databaseCenter_recieve_data_from_server_args {
 
   bool operator == (const databaseCenter_recieve_data_from_server_args & rhs) const
   {
+    if (!(dat == rhs.dat))
+      return false;
     if (!(beginTime == rhs.beginTime))
       return false;
     if (!(endTime == rhs.endTime))
@@ -165,6 +168,7 @@ class databaseCenter_recieve_data_from_server_pargs {
 
 
   virtual ~databaseCenter_recieve_data_from_server_pargs() throw();
+  const DataCollector* dat;
   const std::string* beginTime;
   const std::string* endTime;
 
@@ -235,6 +239,43 @@ class databaseCenter_recieve_data_from_server_presult {
 
 };
 
+
+class databaseCenter_debug_args {
+ public:
+
+  databaseCenter_debug_args(const databaseCenter_debug_args&);
+  databaseCenter_debug_args& operator=(const databaseCenter_debug_args&);
+  databaseCenter_debug_args() {
+  }
+
+  virtual ~databaseCenter_debug_args() throw();
+
+  bool operator == (const databaseCenter_debug_args & /* rhs */) const
+  {
+    return true;
+  }
+  bool operator != (const databaseCenter_debug_args &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const databaseCenter_debug_args & ) const;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
+
+class databaseCenter_debug_pargs {
+ public:
+
+
+  virtual ~databaseCenter_debug_pargs() throw();
+
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+};
+
 class databaseCenterClient : virtual public databaseCenterIf {
  public:
   databaseCenterClient(boost::shared_ptr< ::apache::thrift::protocol::TProtocol> prot) {
@@ -260,11 +301,13 @@ class databaseCenterClient : virtual public databaseCenterIf {
   boost::shared_ptr< ::apache::thrift::protocol::TProtocol> getOutputProtocol() {
     return poprot_;
   }
-  void send_data_to_server(const DataCollector& dat, const std::string& beginTime);
-  void send_send_data_to_server(const DataCollector& dat, const std::string& beginTime);
-  void recieve_data_from_server(TimeLapseData& _return, const std::string& beginTime, const std::string& endTime);
-  void send_recieve_data_from_server(const std::string& beginTime, const std::string& endTime);
+  void send_data_to_server(const DataCollector& dat);
+  void send_send_data_to_server(const DataCollector& dat);
+  void recieve_data_from_server(TimeLapseData& _return, const DataCollector& dat, const std::string& beginTime, const std::string& endTime);
+  void send_recieve_data_from_server(const DataCollector& dat, const std::string& beginTime, const std::string& endTime);
   void recv_recieve_data_from_server(TimeLapseData& _return);
+  void debug();
+  void send_debug();
  protected:
   boost::shared_ptr< ::apache::thrift::protocol::TProtocol> piprot_;
   boost::shared_ptr< ::apache::thrift::protocol::TProtocol> poprot_;
@@ -282,11 +325,13 @@ class databaseCenterProcessor : public ::apache::thrift::TDispatchProcessor {
   ProcessMap processMap_;
   void process_send_data_to_server(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
   void process_recieve_data_from_server(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
+  void process_debug(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext);
  public:
   databaseCenterProcessor(boost::shared_ptr<databaseCenterIf> iface) :
     iface_(iface) {
     processMap_["send_data_to_server"] = &databaseCenterProcessor::process_send_data_to_server;
     processMap_["recieve_data_from_server"] = &databaseCenterProcessor::process_recieve_data_from_server;
+    processMap_["debug"] = &databaseCenterProcessor::process_debug;
   }
 
   virtual ~databaseCenterProcessor() {}
@@ -315,23 +360,32 @@ class databaseCenterMultiface : virtual public databaseCenterIf {
     ifaces_.push_back(iface);
   }
  public:
-  void send_data_to_server(const DataCollector& dat, const std::string& beginTime) {
+  void send_data_to_server(const DataCollector& dat) {
     size_t sz = ifaces_.size();
     size_t i = 0;
     for (; i < (sz - 1); ++i) {
-      ifaces_[i]->send_data_to_server(dat, beginTime);
+      ifaces_[i]->send_data_to_server(dat);
     }
-    ifaces_[i]->send_data_to_server(dat, beginTime);
+    ifaces_[i]->send_data_to_server(dat);
   }
 
-  void recieve_data_from_server(TimeLapseData& _return, const std::string& beginTime, const std::string& endTime) {
+  void recieve_data_from_server(TimeLapseData& _return, const DataCollector& dat, const std::string& beginTime, const std::string& endTime) {
     size_t sz = ifaces_.size();
     size_t i = 0;
     for (; i < (sz - 1); ++i) {
-      ifaces_[i]->recieve_data_from_server(_return, beginTime, endTime);
+      ifaces_[i]->recieve_data_from_server(_return, dat, beginTime, endTime);
     }
-    ifaces_[i]->recieve_data_from_server(_return, beginTime, endTime);
+    ifaces_[i]->recieve_data_from_server(_return, dat, beginTime, endTime);
     return;
+  }
+
+  void debug() {
+    size_t sz = ifaces_.size();
+    size_t i = 0;
+    for (; i < (sz - 1); ++i) {
+      ifaces_[i]->debug();
+    }
+    ifaces_[i]->debug();
   }
 
 };
@@ -364,11 +418,13 @@ class databaseCenterConcurrentClient : virtual public databaseCenterIf {
   boost::shared_ptr< ::apache::thrift::protocol::TProtocol> getOutputProtocol() {
     return poprot_;
   }
-  void send_data_to_server(const DataCollector& dat, const std::string& beginTime);
-  void send_send_data_to_server(const DataCollector& dat, const std::string& beginTime);
-  void recieve_data_from_server(TimeLapseData& _return, const std::string& beginTime, const std::string& endTime);
-  int32_t send_recieve_data_from_server(const std::string& beginTime, const std::string& endTime);
+  void send_data_to_server(const DataCollector& dat);
+  void send_send_data_to_server(const DataCollector& dat);
+  void recieve_data_from_server(TimeLapseData& _return, const DataCollector& dat, const std::string& beginTime, const std::string& endTime);
+  int32_t send_recieve_data_from_server(const DataCollector& dat, const std::string& beginTime, const std::string& endTime);
   void recv_recieve_data_from_server(TimeLapseData& _return, const int32_t seqid);
+  void debug();
+  void send_debug();
  protected:
   boost::shared_ptr< ::apache::thrift::protocol::TProtocol> piprot_;
   boost::shared_ptr< ::apache::thrift::protocol::TProtocol> poprot_;

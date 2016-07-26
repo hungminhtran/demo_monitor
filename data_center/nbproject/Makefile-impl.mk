@@ -31,7 +31,7 @@ DEFAULTCONF=Debug
 CONF=${DEFAULTCONF}
 
 # All Configurations
-ALLCONFS=Debug Release 
+ALLCONFS=Debug Release thrift_stdcpp11_boost thrift_kyotocabinet_test 
 
 
 # build

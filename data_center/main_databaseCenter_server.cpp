@@ -2,6 +2,7 @@
 // You should copy it to another filename to avoid overwriting it.
 
 #include "../thrift_gen_code/databaseCenter.h"
+#include "databaseTimelapseWrapper.h"
 #include <thrift/protocol/TBinaryProtocol.h>
 #include <thrift/server/TSimpleServer.h>
 #include <thrift/transport/TServerSocket.h>
@@ -21,28 +22,37 @@ using namespace ::demomonitor;
 #include <valgrind/memcheck.h>
 
 class databaseCenterHandler : virtual public databaseCenterIf {
+private:
+    DatabaseTimelapseWrapper databaseTimelapseWrapper;
 public:
 
     databaseCenterHandler() {
         // Your initialization goes here
     }
 
-    void send_data_to_server(const DataCollector& dat, const std::string& beginTime) {
+    void send_data_to_server(const DataCollector& dat) {
         // Your implementation goes here
-        std::cout << beginTime<< " " << dat << "send_data\n";
-        
-        VALGRIND_DO_LEAK_CHECK;
+        std::string currentDatetime = DatabaseTimelapseWrapper::get_current_datetime();
+//        std::cout << currentDatetime << " " << dat << "send_data\n";
+        this->databaseTimelapseWrapper.appendValue(DatabaseTimelapseWrapper::getKeyFromData(dat, currentDatetime), dat.value, currentDatetime);
     }
 
-    void recieve_data_from_server(TimeLapseData& _return, const std::string& beginTime, const std::string& endTime) {
+    void recieve_data_from_server(TimeLapseData& _return, const DataCollector& dat, const std::string& beginTime, const std::string& endTime) {
         // Your implementation goes here
         printf("receive_data_from_server\n");
+    }
+
+    void debug() {
+        // Your implementation goes here
+        printf("debug\n");
+        databaseTimelapseWrapper.printAllElement();
+        printf("end debug\n");
     }
 
 };
 
 int main(int argc, char **argv) {
-    std::cout << "running.." << std::endl;
+    std::cout << "data center is running.." << std::endl;
     int port = 9090;
     shared_ptr<databaseCenterHandler> handler(new databaseCenterHandler());
     shared_ptr<TProcessor> processor(new databaseCenterProcessor(handler));

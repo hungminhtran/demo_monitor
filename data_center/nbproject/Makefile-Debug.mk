@@ -41,6 +41,16 @@ OBJECTFILES= \
 	${OBJECTDIR}/databaseTimelapseWrapper.o \
 	${OBJECTDIR}/main_databaseCenter_server.o
 
+# Test Directory
+TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
+
+# Test Files
+TESTFILES= \
+	${TESTDIR}/TestFiles/f1
+
+# Test Object Files
+TESTOBJECTFILES= \
+	${TESTDIR}/tests/databaseTLWrapper_test.o
 
 # C Compiler Flags
 CFLAGS=
@@ -93,6 +103,95 @@ ${OBJECTDIR}/main_databaseCenter_server.o: main_databaseCenter_server.cpp
 
 # Subprojects
 .build-subprojects:
+
+# Build Test Targets
+.build-tests-conf: .build-tests-subprojects .build-conf ${TESTFILES}
+.build-tests-subprojects:
+
+${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/databaseTLWrapper_test.o ${OBJECTFILES:%.o=%_nomain.o}
+	${MKDIR} -p ${TESTDIR}/TestFiles
+	${LINK.cc} -lthrift -lboost_system -lkyotocabinet  -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS} 
+
+
+${TESTDIR}/tests/databaseTLWrapper_test.o: tests/databaseTLWrapper_test.cpp 
+	${MKDIR} -p ${TESTDIR}/tests
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -I. -std=c++11 -MMD -MP -MF "$@.d" -o ${TESTDIR}/tests/databaseTLWrapper_test.o tests/databaseTLWrapper_test.cpp
+
+
+${OBJECTDIR}/_ext/87989ef3/databaseCenter_nomain.o: ${OBJECTDIR}/_ext/87989ef3/databaseCenter.o ../thrift_gen_code/databaseCenter.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/87989ef3
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/87989ef3/databaseCenter.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/87989ef3/databaseCenter_nomain.o ../thrift_gen_code/databaseCenter.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/_ext/87989ef3/databaseCenter.o ${OBJECTDIR}/_ext/87989ef3/databaseCenter_nomain.o;\
+	fi
+
+${OBJECTDIR}/_ext/87989ef3/demo_monitor_constants_nomain.o: ${OBJECTDIR}/_ext/87989ef3/demo_monitor_constants.o ../thrift_gen_code/demo_monitor_constants.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/87989ef3
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/87989ef3/demo_monitor_constants.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/87989ef3/demo_monitor_constants_nomain.o ../thrift_gen_code/demo_monitor_constants.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/_ext/87989ef3/demo_monitor_constants.o ${OBJECTDIR}/_ext/87989ef3/demo_monitor_constants_nomain.o;\
+	fi
+
+${OBJECTDIR}/_ext/87989ef3/demo_monitor_types_nomain.o: ${OBJECTDIR}/_ext/87989ef3/demo_monitor_types.o ../thrift_gen_code/demo_monitor_types.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/87989ef3
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/87989ef3/demo_monitor_types.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/87989ef3/demo_monitor_types_nomain.o ../thrift_gen_code/demo_monitor_types.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/_ext/87989ef3/demo_monitor_types.o ${OBJECTDIR}/_ext/87989ef3/demo_monitor_types_nomain.o;\
+	fi
+
+${OBJECTDIR}/databaseTimelapseWrapper_nomain.o: ${OBJECTDIR}/databaseTimelapseWrapper.o databaseTimelapseWrapper.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/databaseTimelapseWrapper.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/databaseTimelapseWrapper_nomain.o databaseTimelapseWrapper.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/databaseTimelapseWrapper.o ${OBJECTDIR}/databaseTimelapseWrapper_nomain.o;\
+	fi
+
+${OBJECTDIR}/main_databaseCenter_server_nomain.o: ${OBJECTDIR}/main_databaseCenter_server.o main_databaseCenter_server.cpp 
+	${MKDIR} -p ${OBJECTDIR}
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/main_databaseCenter_server.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main_databaseCenter_server_nomain.o main_databaseCenter_server.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/main_databaseCenter_server.o ${OBJECTDIR}/main_databaseCenter_server_nomain.o;\
+	fi
+
+# Run Test Targets
+.test-conf:
+	@if [ "${TEST}" = "" ]; \
+	then  \
+	    ${TESTDIR}/TestFiles/f1 || true; \
+	else  \
+	    ./${TEST} || true; \
+	fi
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}

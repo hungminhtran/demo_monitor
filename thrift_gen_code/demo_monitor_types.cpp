@@ -206,12 +206,8 @@ TimeLapseData::~TimeLapseData() throw() {
 }
 
 
-void TimeLapseData::__set_beginTime(const std::string& val) {
-  this->beginTime = val;
-}
-
-void TimeLapseData::__set_totalElements(const int32_t val) {
-  this->totalElements = val;
+void TimeLapseData::__set_beginDateTime(const std::string& val) {
+  this->beginDateTime = val;
 }
 
 void TimeLapseData::__set_values(const std::vector<double> & val) {
@@ -241,21 +237,13 @@ uint32_t TimeLapseData::read(::apache::thrift::protocol::TProtocol* iprot) {
     {
       case 1:
         if (ftype == ::apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readString(this->beginTime);
-          this->__isset.beginTime = true;
+          xfer += iprot->readString(this->beginDateTime);
+          this->__isset.beginDateTime = true;
         } else {
           xfer += iprot->skip(ftype);
         }
         break;
       case 2:
-        if (ftype == ::apache::thrift::protocol::T_I32) {
-          xfer += iprot->readI32(this->totalElements);
-          this->__isset.totalElements = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      case 3:
         if (ftype == ::apache::thrift::protocol::T_LIST) {
           {
             this->values.clear();
@@ -292,15 +280,11 @@ uint32_t TimeLapseData::write(::apache::thrift::protocol::TProtocol* oprot) cons
   apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
   xfer += oprot->writeStructBegin("TimeLapseData");
 
-  xfer += oprot->writeFieldBegin("beginTime", ::apache::thrift::protocol::T_STRING, 1);
-  xfer += oprot->writeString(this->beginTime);
+  xfer += oprot->writeFieldBegin("beginDateTime", ::apache::thrift::protocol::T_STRING, 1);
+  xfer += oprot->writeString(this->beginDateTime);
   xfer += oprot->writeFieldEnd();
 
-  xfer += oprot->writeFieldBegin("totalElements", ::apache::thrift::protocol::T_I32, 2);
-  xfer += oprot->writeI32(this->totalElements);
-  xfer += oprot->writeFieldEnd();
-
-  xfer += oprot->writeFieldBegin("values", ::apache::thrift::protocol::T_LIST, 3);
+  xfer += oprot->writeFieldBegin("values", ::apache::thrift::protocol::T_LIST, 2);
   {
     xfer += oprot->writeListBegin(::apache::thrift::protocol::T_DOUBLE, static_cast<uint32_t>(this->values.size()));
     std::vector<double> ::const_iterator _iter9;
@@ -319,21 +303,18 @@ uint32_t TimeLapseData::write(::apache::thrift::protocol::TProtocol* oprot) cons
 
 void swap(TimeLapseData &a, TimeLapseData &b) {
   using ::std::swap;
-  swap(a.beginTime, b.beginTime);
-  swap(a.totalElements, b.totalElements);
+  swap(a.beginDateTime, b.beginDateTime);
   swap(a.values, b.values);
   swap(a.__isset, b.__isset);
 }
 
 TimeLapseData::TimeLapseData(const TimeLapseData& other10) {
-  beginTime = other10.beginTime;
-  totalElements = other10.totalElements;
+  beginDateTime = other10.beginDateTime;
   values = other10.values;
   __isset = other10.__isset;
 }
 TimeLapseData& TimeLapseData::operator=(const TimeLapseData& other11) {
-  beginTime = other11.beginTime;
-  totalElements = other11.totalElements;
+  beginDateTime = other11.beginDateTime;
   values = other11.values;
   __isset = other11.__isset;
   return *this;
@@ -341,8 +322,7 @@ TimeLapseData& TimeLapseData::operator=(const TimeLapseData& other11) {
 void TimeLapseData::printTo(std::ostream& out) const {
   using ::apache::thrift::to_string;
   out << "TimeLapseData(";
-  out << "beginTime=" << to_string(beginTime);
-  out << ", " << "totalElements=" << to_string(totalElements);
+  out << "beginDateTime=" << to_string(beginDateTime);
   out << ", " << "values=" << to_string(values);
   out << ")";
 }
