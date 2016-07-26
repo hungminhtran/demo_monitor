@@ -36,11 +36,11 @@ int main() {
                 temp.__set_metric(METRIC::CPU_SYS);
                 temp.__set_object(g_demo_monitor_constants.METRIC_STR.at(METRIC::CPU_SYS) + "_" + boost::lexical_cast<string>(i));
                 temp.__set_value(float(cpu_sy[i]));
-                client->send_data_to_server(temp);
+                client->send_data_to_server(temp, "");
                 temp.__set_metric(METRIC::CPU_USR);
                 temp.__set_object(g_demo_monitor_constants.METRIC_STR.at(METRIC::CPU_USR) + "_" + boost::lexical_cast<string>(i));
                 temp.__set_value(float(cpu_us[i]));
-                client->send_data_to_server(temp);
+                client->send_data_to_server(temp, "");
             }
         }
         transport->close();
