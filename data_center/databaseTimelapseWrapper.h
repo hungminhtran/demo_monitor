@@ -24,14 +24,14 @@ private:
     std::string databaseName;
     kyotocabinet::HashDB myDb;
 public:
+    static std::string dataSerialization(::demomonitor::TimeLapseData temp);
+    static ::demomonitor::TimeLapseData dataDeserialization(std::string temp);
     DatabaseTimelapseWrapper();
-    std::string dataSerialization(::demomonitor::dataCollector temp);
-    ::demomonitor::dataCollector dataDeserialization(std::string temp);
     std::string getDatabaseName();
-    std::vector<float> getValue(std::string key);
     bool isValueAvailable(std::string key);
-    void appendValue(std::string key);
-    void deleteElement(std::string key);
+    ::demomonitor::TimeLapseData getValues(std::string key);
+    bool appendValue(std::string key, float value, std::string beginTime);
+    bool deleteElement(std::string key);
     ~DatabaseTimelapseWrapper();
 };
 

@@ -14,6 +14,7 @@
 #include "databaseTimelapseWrapper.h"
 #include <thrift/protocol/TBinaryProtocol.h>
 #include <thrift/transport/TBufferTransports.h>
+
 using namespace std;
 using namespace kyotocabinet;
 using namespace ::demomonitor;
@@ -36,37 +37,54 @@ std::string DatabaseTimelapseWrapper::getDatabaseName() {
     return this->databaseName;
 }
 
-std::string DatabaseTimelapseWrapper::dataSerialization(dataCollector temp) {
+std::string DatabaseTimelapseWrapper::dataSerialization(TimeLapseData temp) {
     shared_ptr<TMemoryBuffer> strBuffer(new TMemoryBuffer());
     shared_ptr<TBinaryProtocol> binaryProtcol(new TBinaryProtocol(strBuffer));
     temp.write(binaryProtcol.get());
     return strBuffer->getBufferAsString();
 }
 
-dataCollector DatabaseTimelapseWrapper::dataDeserialization(std::string serialized) {
+TimeLapseData DatabaseTimelapseWrapper::dataDeserialization(std::string serialized) {
     shared_ptr<TMemoryBuffer> strBuffer2(new TMemoryBuffer());
     shared_ptr<TBinaryProtocol> binaryProtcol2(new TBinaryProtocol(strBuffer2));
     strBuffer2->resetBuffer((uint8_t*) serialized.data(), static_cast<uint32_t> (serialized.length()));
-    dataCollector temp2;
-    temp2.read(binaryProtcol2.get());  
+    TimeLapseData temp2;
+    temp2.read(binaryProtcol2.get());
     return temp2;
 }
 
-vector<float> DatabaseTimelapseWrapper::getValue(string key) {
-    vector<float> result;
+bool DatabaseTimelapseWrapper::isValueAvailable(std::string key) {
+    string temp;
+    bool result = this->myDb.get(key, &temp);
     return result;
 }
 
-bool DatabaseTimelapseWrapper::isValueAvailable(std::string key) {
-    return false;
+TimeLapseData DatabaseTimelapseWrapper::getValues(std::string key) {
+    string temp = "";
+    bool isSucess = this->myDb.get(key, &temp);
+    TimeLapseData result = DatabaseTimelapseWrapper::dataDeserialization(temp);
+    return result;
 }
 
-void DatabaseTimelapseWrapper::appendValue(string key) {
-    return;
+bool DatabaseTimelapseWrapper::appendValue(std::string key, float value, string beginTime) {
+    TimeLapseData temp;
+    string serialized;
+    if (this->myDb.get(key, &serialized)) {
+        TimeLapseData temp = DatabaseTimelapseWrapper::dataDeserialization(serialized);
+        temp.values.push_back(value);
+        temp.totalElements++;
+    }
+    else {
+        temp.beginTime = beginTime;
+        temp.totalElements = 1;
+        temp.values.push_back(value);
+    }
+    serialized = DatabaseTimelapseWrapper::dataSerialization(temp);
+    return this->myDb.set(key, serialized);
 }
 
-void DatabaseTimelapseWrapper::deleteElement(string key) {
-    return;
+bool DatabaseTimelapseWrapper::deleteElement(string key) {
+    return this->myDb.remove(key);
 }
 
 DatabaseTimelapseWrapper::~DatabaseTimelapseWrapper() {

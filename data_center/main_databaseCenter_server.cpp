@@ -7,9 +7,6 @@
 #include <thrift/transport/TServerSocket.h>
 #include <thrift/transport/TBufferTransports.h>
 
-#include <ctime>
-#include <iostream>
-
 using namespace ::apache::thrift;
 using namespace ::apache::thrift::protocol;
 using namespace ::apache::thrift::transport;
@@ -17,35 +14,37 @@ using namespace ::apache::thrift::server;
 
 using boost::shared_ptr;
 
-using namespace ::demomonitor;
+using namespace  ::demomonitor;
+
+#include <iostream>
 using namespace std;
 
 class databaseCenterHandler : virtual public databaseCenterIf {
-public:
+ public:
+  databaseCenterHandler() {
+    // Your initialization goes here
+  }
 
-    databaseCenterHandler() {
-        // Your initialization goes here
-    }
-    // recieved data from clientS
+  void send_data_to_server(const DataCollector& dat, const std::string& beginTime) {
+    // Your implementation goes here
+    printf("send_data_to_server\n");
+  }
 
-    void send_data_to_server (const dataCollector& dat) {
-        // Your implementation goes here
-        time_t _time = time(0); // get time now
-        struct tm * _tnow = localtime(&_time);
-        cout << _tnow->tm_hour << ":" << _tnow->tm_min << ":" << _tnow->tm_sec << " " << dat << "send_data\n";
-
-    }
-    // check range and send data to client
-
-    void recieve_data_from_server(std::vector<double> & _return, const std::string& begintime, const std::string& endTime) {
-        // Your implementation goes here
-        time_t _time = time(0); // get time now
-        struct tm * _tnow = localtime(&_time);
-        cout << _tnow->tm_hour << ":" << _tnow->tm_min << ":" << _tnow->tm_sec << " " << begintime << "recieve_data " << endTime << "\n";
-    }
-
+  void recieve_data_from_server(TimeLapseData& _return, const std::string& beginTime, const std::string& endTime) {
+    // Your implementation goes here
+    printf("recieve_data_from_server\n");
+  }
 
 };
+
+
+//void send_data_to_server(const DataCollector& dat) {
+//    // Your implementation goes here
+//    time_t _time = time(0); // get time now
+//    struct tm * _tnow = localtime(&_time);
+//    cout << _tnow->tm_hour << ":" << _tnow->tm_min << ":" << _tnow->tm_sec << " " << dat << "send_data\n";
+//
+//}
 
 int main(int argc, char **argv) {
     cout << "running.." << endl;

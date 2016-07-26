@@ -30,8 +30,8 @@ int main() {
             sleep(1);
             cpu_us = getComputerInfo.get_current_cpu_usage(METRIC::CPU_USR);
             cpu_sy = getComputerInfo.get_current_cpu_usage(METRIC::CPU_SYS);
-            for (int i = 0; i < 4; i++) {
-                dataCollector temp;
+            for (int i = 0; i < cpu_us.size(); i++) {
+                DataCollector temp;
                 temp.__set_tag(TAG::CPU);
                 temp.__set_metric(METRIC::CPU_SYS);
                 temp.__set_object(g_demo_monitor_constants.METRIC_STR.at(METRIC::CPU_SYS) + "_" + boost::lexical_cast<string>(i));

@@ -42,6 +42,14 @@ uint32_t databaseCenter_send_data_to_server_args::read(::apache::thrift::protoco
           xfer += iprot->skip(ftype);
         }
         break;
+      case 2:
+        if (ftype == ::apache::thrift::protocol::T_STRING) {
+          xfer += iprot->readString(this->beginTime);
+          this->__isset.beginTime = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
       default:
         xfer += iprot->skip(ftype);
         break;
@@ -63,6 +71,10 @@ uint32_t databaseCenter_send_data_to_server_args::write(::apache::thrift::protoc
   xfer += this->dat.write(oprot);
   xfer += oprot->writeFieldEnd();
 
+  xfer += oprot->writeFieldBegin("beginTime", ::apache::thrift::protocol::T_STRING, 2);
+  xfer += oprot->writeString(this->beginTime);
+  xfer += oprot->writeFieldEnd();
+
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
   return xfer;
@@ -82,116 +94,12 @@ uint32_t databaseCenter_send_data_to_server_pargs::write(::apache::thrift::proto
   xfer += (*(this->dat)).write(oprot);
   xfer += oprot->writeFieldEnd();
 
+  xfer += oprot->writeFieldBegin("beginTime", ::apache::thrift::protocol::T_STRING, 2);
+  xfer += oprot->writeString((*(this->beginTime)));
+  xfer += oprot->writeFieldEnd();
+
   xfer += oprot->writeFieldStop();
   xfer += oprot->writeStructEnd();
-  return xfer;
-}
-
-
-databaseCenter_send_data_to_server_result::~databaseCenter_send_data_to_server_result() throw() {
-}
-
-
-uint32_t databaseCenter_send_data_to_server_result::read(::apache::thrift::protocol::TProtocol* iprot) {
-
-  apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
-  uint32_t xfer = 0;
-  std::string fname;
-  ::apache::thrift::protocol::TType ftype;
-  int16_t fid;
-
-  xfer += iprot->readStructBegin(fname);
-
-  using ::apache::thrift::protocol::TProtocolException;
-
-
-  while (true)
-  {
-    xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == ::apache::thrift::protocol::T_STOP) {
-      break;
-    }
-    switch (fid)
-    {
-      case 1:
-        if (ftype == ::apache::thrift::protocol::T_STRUCT) {
-          xfer += this->e.read(iprot);
-          this->__isset.e = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      default:
-        xfer += iprot->skip(ftype);
-        break;
-    }
-    xfer += iprot->readFieldEnd();
-  }
-
-  xfer += iprot->readStructEnd();
-
-  return xfer;
-}
-
-uint32_t databaseCenter_send_data_to_server_result::write(::apache::thrift::protocol::TProtocol* oprot) const {
-
-  uint32_t xfer = 0;
-
-  xfer += oprot->writeStructBegin("databaseCenter_send_data_to_server_result");
-
-  if (this->__isset.e) {
-    xfer += oprot->writeFieldBegin("e", ::apache::thrift::protocol::T_STRUCT, 1);
-    xfer += this->e.write(oprot);
-    xfer += oprot->writeFieldEnd();
-  }
-  xfer += oprot->writeFieldStop();
-  xfer += oprot->writeStructEnd();
-  return xfer;
-}
-
-
-databaseCenter_send_data_to_server_presult::~databaseCenter_send_data_to_server_presult() throw() {
-}
-
-
-uint32_t databaseCenter_send_data_to_server_presult::read(::apache::thrift::protocol::TProtocol* iprot) {
-
-  apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
-  uint32_t xfer = 0;
-  std::string fname;
-  ::apache::thrift::protocol::TType ftype;
-  int16_t fid;
-
-  xfer += iprot->readStructBegin(fname);
-
-  using ::apache::thrift::protocol::TProtocolException;
-
-
-  while (true)
-  {
-    xfer += iprot->readFieldBegin(fname, ftype, fid);
-    if (ftype == ::apache::thrift::protocol::T_STOP) {
-      break;
-    }
-    switch (fid)
-    {
-      case 1:
-        if (ftype == ::apache::thrift::protocol::T_STRUCT) {
-          xfer += this->e.read(iprot);
-          this->__isset.e = true;
-        } else {
-          xfer += iprot->skip(ftype);
-        }
-        break;
-      default:
-        xfer += iprot->skip(ftype);
-        break;
-    }
-    xfer += iprot->readFieldEnd();
-  }
-
-  xfer += iprot->readStructEnd();
-
   return xfer;
 }
 
@@ -223,8 +131,8 @@ uint32_t databaseCenter_recieve_data_from_server_args::read(::apache::thrift::pr
     {
       case 1:
         if (ftype == ::apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readString(this->begintime);
-          this->__isset.begintime = true;
+          xfer += iprot->readString(this->beginTime);
+          this->__isset.beginTime = true;
         } else {
           xfer += iprot->skip(ftype);
         }
@@ -254,8 +162,8 @@ uint32_t databaseCenter_recieve_data_from_server_args::write(::apache::thrift::p
   apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
   xfer += oprot->writeStructBegin("databaseCenter_recieve_data_from_server_args");
 
-  xfer += oprot->writeFieldBegin("begintime", ::apache::thrift::protocol::T_STRING, 1);
-  xfer += oprot->writeString(this->begintime);
+  xfer += oprot->writeFieldBegin("beginTime", ::apache::thrift::protocol::T_STRING, 1);
+  xfer += oprot->writeString(this->beginTime);
   xfer += oprot->writeFieldEnd();
 
   xfer += oprot->writeFieldBegin("endTime", ::apache::thrift::protocol::T_STRING, 2);
@@ -277,8 +185,8 @@ uint32_t databaseCenter_recieve_data_from_server_pargs::write(::apache::thrift::
   apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
   xfer += oprot->writeStructBegin("databaseCenter_recieve_data_from_server_pargs");
 
-  xfer += oprot->writeFieldBegin("begintime", ::apache::thrift::protocol::T_STRING, 1);
-  xfer += oprot->writeString((*(this->begintime)));
+  xfer += oprot->writeFieldBegin("beginTime", ::apache::thrift::protocol::T_STRING, 1);
+  xfer += oprot->writeString((*(this->beginTime)));
   xfer += oprot->writeFieldEnd();
 
   xfer += oprot->writeFieldBegin("endTime", ::apache::thrift::protocol::T_STRING, 2);
@@ -317,20 +225,8 @@ uint32_t databaseCenter_recieve_data_from_server_result::read(::apache::thrift::
     switch (fid)
     {
       case 0:
-        if (ftype == ::apache::thrift::protocol::T_LIST) {
-          {
-            this->success.clear();
-            uint32_t _size6;
-            ::apache::thrift::protocol::TType _etype9;
-            xfer += iprot->readListBegin(_etype9, _size6);
-            this->success.resize(_size6);
-            uint32_t _i10;
-            for (_i10 = 0; _i10 < _size6; ++_i10)
-            {
-              xfer += iprot->readDouble(this->success[_i10]);
-            }
-            xfer += iprot->readListEnd();
-          }
+        if (ftype == ::apache::thrift::protocol::T_STRUCT) {
+          xfer += this->success.read(iprot);
           this->__isset.success = true;
         } else {
           xfer += iprot->skip(ftype);
@@ -363,16 +259,8 @@ uint32_t databaseCenter_recieve_data_from_server_result::write(::apache::thrift:
   xfer += oprot->writeStructBegin("databaseCenter_recieve_data_from_server_result");
 
   if (this->__isset.success) {
-    xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_LIST, 0);
-    {
-      xfer += oprot->writeListBegin(::apache::thrift::protocol::T_DOUBLE, static_cast<uint32_t>(this->success.size()));
-      std::vector<double> ::const_iterator _iter11;
-      for (_iter11 = this->success.begin(); _iter11 != this->success.end(); ++_iter11)
-      {
-        xfer += oprot->writeDouble((*_iter11));
-      }
-      xfer += oprot->writeListEnd();
-    }
+    xfer += oprot->writeFieldBegin("success", ::apache::thrift::protocol::T_STRUCT, 0);
+    xfer += this->success.write(oprot);
     xfer += oprot->writeFieldEnd();
   } else if (this->__isset.e) {
     xfer += oprot->writeFieldBegin("e", ::apache::thrift::protocol::T_STRUCT, 1);
@@ -411,20 +299,8 @@ uint32_t databaseCenter_recieve_data_from_server_presult::read(::apache::thrift:
     switch (fid)
     {
       case 0:
-        if (ftype == ::apache::thrift::protocol::T_LIST) {
-          {
-            (*(this->success)).clear();
-            uint32_t _size12;
-            ::apache::thrift::protocol::TType _etype15;
-            xfer += iprot->readListBegin(_etype15, _size12);
-            (*(this->success)).resize(_size12);
-            uint32_t _i16;
-            for (_i16 = 0; _i16 < _size12; ++_i16)
-            {
-              xfer += iprot->readDouble((*(this->success))[_i16]);
-            }
-            xfer += iprot->readListEnd();
-          }
+        if (ftype == ::apache::thrift::protocol::T_STRUCT) {
+          xfer += (*(this->success)).read(iprot);
           this->__isset.success = true;
         } else {
           xfer += iprot->skip(ftype);
@@ -450,19 +326,19 @@ uint32_t databaseCenter_recieve_data_from_server_presult::read(::apache::thrift:
   return xfer;
 }
 
-void databaseCenterClient::send_data_to_server(const dataCollector& dat)
+void databaseCenterClient::send_data_to_server(const DataCollector& dat, const std::string& beginTime)
 {
-  send_send_data_to_server(dat);
-  recv_send_data_to_server();
+  send_send_data_to_server(dat, beginTime);
 }
 
-void databaseCenterClient::send_send_data_to_server(const dataCollector& dat)
+void databaseCenterClient::send_send_data_to_server(const DataCollector& dat, const std::string& beginTime)
 {
   int32_t cseqid = 0;
-  oprot_->writeMessageBegin("send_data_to_server", ::apache::thrift::protocol::T_CALL, cseqid);
+  oprot_->writeMessageBegin("send_data_to_server", ::apache::thrift::protocol::T_ONEWAY, cseqid);
 
   databaseCenter_send_data_to_server_pargs args;
   args.dat = &dat;
+  args.beginTime = &beginTime;
   args.write(oprot_);
 
   oprot_->writeMessageEnd();
@@ -470,55 +346,19 @@ void databaseCenterClient::send_send_data_to_server(const dataCollector& dat)
   oprot_->getTransport()->flush();
 }
 
-void databaseCenterClient::recv_send_data_to_server()
+void databaseCenterClient::recieve_data_from_server(TimeLapseData& _return, const std::string& beginTime, const std::string& endTime)
 {
-
-  int32_t rseqid = 0;
-  std::string fname;
-  ::apache::thrift::protocol::TMessageType mtype;
-
-  iprot_->readMessageBegin(fname, mtype, rseqid);
-  if (mtype == ::apache::thrift::protocol::T_EXCEPTION) {
-    ::apache::thrift::TApplicationException x;
-    x.read(iprot_);
-    iprot_->readMessageEnd();
-    iprot_->getTransport()->readEnd();
-    throw x;
-  }
-  if (mtype != ::apache::thrift::protocol::T_REPLY) {
-    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
-    iprot_->readMessageEnd();
-    iprot_->getTransport()->readEnd();
-  }
-  if (fname.compare("send_data_to_server") != 0) {
-    iprot_->skip(::apache::thrift::protocol::T_STRUCT);
-    iprot_->readMessageEnd();
-    iprot_->getTransport()->readEnd();
-  }
-  databaseCenter_send_data_to_server_presult result;
-  result.read(iprot_);
-  iprot_->readMessageEnd();
-  iprot_->getTransport()->readEnd();
-
-  if (result.__isset.e) {
-    throw result.e;
-  }
-  return;
-}
-
-void databaseCenterClient::recieve_data_from_server(std::vector<double> & _return, const std::string& begintime, const std::string& endTime)
-{
-  send_recieve_data_from_server(begintime, endTime);
+  send_recieve_data_from_server(beginTime, endTime);
   recv_recieve_data_from_server(_return);
 }
 
-void databaseCenterClient::send_recieve_data_from_server(const std::string& begintime, const std::string& endTime)
+void databaseCenterClient::send_recieve_data_from_server(const std::string& beginTime, const std::string& endTime)
 {
   int32_t cseqid = 0;
   oprot_->writeMessageBegin("recieve_data_from_server", ::apache::thrift::protocol::T_CALL, cseqid);
 
   databaseCenter_recieve_data_from_server_pargs args;
-  args.begintime = &begintime;
+  args.beginTime = &beginTime;
   args.endTime = &endTime;
   args.write(oprot_);
 
@@ -527,7 +367,7 @@ void databaseCenterClient::send_recieve_data_from_server(const std::string& begi
   oprot_->getTransport()->flush();
 }
 
-void databaseCenterClient::recv_recieve_data_from_server(std::vector<double> & _return)
+void databaseCenterClient::recv_recieve_data_from_server(TimeLapseData& _return)
 {
 
   int32_t rseqid = 0;
@@ -587,7 +427,7 @@ bool databaseCenterProcessor::dispatchCall(::apache::thrift::protocol::TProtocol
   return true;
 }
 
-void databaseCenterProcessor::process_send_data_to_server(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext)
+void databaseCenterProcessor::process_send_data_to_server(int32_t, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol*, void* callContext)
 {
   void* ctx = NULL;
   if (this->eventHandler_.get() != NULL) {
@@ -608,39 +448,20 @@ void databaseCenterProcessor::process_send_data_to_server(int32_t seqid, ::apach
     this->eventHandler_->postRead(ctx, "databaseCenter.send_data_to_server", bytes);
   }
 
-  databaseCenter_send_data_to_server_result result;
   try {
-    iface_->send_data_to_server(args.dat);
-  } catch (InvalidIOOperator &e) {
-    result.e = e;
-    result.__isset.e = true;
-  } catch (const std::exception& e) {
+    iface_->send_data_to_server(args.dat, args.beginTime);
+  } catch (const std::exception&) {
     if (this->eventHandler_.get() != NULL) {
       this->eventHandler_->handlerError(ctx, "databaseCenter.send_data_to_server");
     }
-
-    ::apache::thrift::TApplicationException x(e.what());
-    oprot->writeMessageBegin("send_data_to_server", ::apache::thrift::protocol::T_EXCEPTION, seqid);
-    x.write(oprot);
-    oprot->writeMessageEnd();
-    oprot->getTransport()->writeEnd();
-    oprot->getTransport()->flush();
     return;
   }
 
   if (this->eventHandler_.get() != NULL) {
-    this->eventHandler_->preWrite(ctx, "databaseCenter.send_data_to_server");
+    this->eventHandler_->asyncComplete(ctx, "databaseCenter.send_data_to_server");
   }
 
-  oprot->writeMessageBegin("send_data_to_server", ::apache::thrift::protocol::T_REPLY, seqid);
-  result.write(oprot);
-  oprot->writeMessageEnd();
-  bytes = oprot->getTransport()->writeEnd();
-  oprot->getTransport()->flush();
-
-  if (this->eventHandler_.get() != NULL) {
-    this->eventHandler_->postWrite(ctx, "databaseCenter.send_data_to_server", bytes);
-  }
+  return;
 }
 
 void databaseCenterProcessor::process_recieve_data_from_server(int32_t seqid, ::apache::thrift::protocol::TProtocol* iprot, ::apache::thrift::protocol::TProtocol* oprot, void* callContext)
@@ -666,7 +487,7 @@ void databaseCenterProcessor::process_recieve_data_from_server(int32_t seqid, ::
 
   databaseCenter_recieve_data_from_server_result result;
   try {
-    iface_->recieve_data_from_server(result.success, args.begintime, args.endTime);
+    iface_->recieve_data_from_server(result.success, args.beginTime, args.endTime);
     result.__isset.success = true;
   } catch (InvalidIOOperator &e) {
     result.e = e;
@@ -707,20 +528,20 @@ void databaseCenterProcessor::process_recieve_data_from_server(int32_t seqid, ::
   return processor;
 }
 
-void databaseCenterConcurrentClient::send_data_to_server(const dataCollector& dat)
+void databaseCenterConcurrentClient::send_data_to_server(const DataCollector& dat, const std::string& beginTime)
 {
-  int32_t seqid = send_send_data_to_server(dat);
-  recv_send_data_to_server(seqid);
+  send_send_data_to_server(dat, beginTime);
 }
 
-int32_t databaseCenterConcurrentClient::send_send_data_to_server(const dataCollector& dat)
+void databaseCenterConcurrentClient::send_send_data_to_server(const DataCollector& dat, const std::string& beginTime)
 {
-  int32_t cseqid = this->sync_.generateSeqId();
+  int32_t cseqid = 0;
   ::apache::thrift::async::TConcurrentSendSentry sentry(&this->sync_);
-  oprot_->writeMessageBegin("send_data_to_server", ::apache::thrift::protocol::T_CALL, cseqid);
+  oprot_->writeMessageBegin("send_data_to_server", ::apache::thrift::protocol::T_ONEWAY, cseqid);
 
   databaseCenter_send_data_to_server_pargs args;
   args.dat = &dat;
+  args.beginTime = &beginTime;
   args.write(oprot_);
 
   oprot_->writeMessageEnd();
@@ -728,81 +549,22 @@ int32_t databaseCenterConcurrentClient::send_send_data_to_server(const dataColle
   oprot_->getTransport()->flush();
 
   sentry.commit();
-  return cseqid;
 }
 
-void databaseCenterConcurrentClient::recv_send_data_to_server(const int32_t seqid)
+void databaseCenterConcurrentClient::recieve_data_from_server(TimeLapseData& _return, const std::string& beginTime, const std::string& endTime)
 {
-
-  int32_t rseqid = 0;
-  std::string fname;
-  ::apache::thrift::protocol::TMessageType mtype;
-
-  // the read mutex gets dropped and reacquired as part of waitForWork()
-  // The destructor of this sentry wakes up other clients
-  ::apache::thrift::async::TConcurrentRecvSentry sentry(&this->sync_, seqid);
-
-  while(true) {
-    if(!this->sync_.getPending(fname, mtype, rseqid)) {
-      iprot_->readMessageBegin(fname, mtype, rseqid);
-    }
-    if(seqid == rseqid) {
-      if (mtype == ::apache::thrift::protocol::T_EXCEPTION) {
-        ::apache::thrift::TApplicationException x;
-        x.read(iprot_);
-        iprot_->readMessageEnd();
-        iprot_->getTransport()->readEnd();
-        sentry.commit();
-        throw x;
-      }
-      if (mtype != ::apache::thrift::protocol::T_REPLY) {
-        iprot_->skip(::apache::thrift::protocol::T_STRUCT);
-        iprot_->readMessageEnd();
-        iprot_->getTransport()->readEnd();
-      }
-      if (fname.compare("send_data_to_server") != 0) {
-        iprot_->skip(::apache::thrift::protocol::T_STRUCT);
-        iprot_->readMessageEnd();
-        iprot_->getTransport()->readEnd();
-
-        // in a bad state, don't commit
-        using ::apache::thrift::protocol::TProtocolException;
-        throw TProtocolException(TProtocolException::INVALID_DATA);
-      }
-      databaseCenter_send_data_to_server_presult result;
-      result.read(iprot_);
-      iprot_->readMessageEnd();
-      iprot_->getTransport()->readEnd();
-
-      if (result.__isset.e) {
-        sentry.commit();
-        throw result.e;
-      }
-      sentry.commit();
-      return;
-    }
-    // seqid != rseqid
-    this->sync_.updatePending(fname, mtype, rseqid);
-
-    // this will temporarily unlock the readMutex, and let other clients get work done
-    this->sync_.waitForWork(seqid);
-  } // end while(true)
-}
-
-void databaseCenterConcurrentClient::recieve_data_from_server(std::vector<double> & _return, const std::string& begintime, const std::string& endTime)
-{
-  int32_t seqid = send_recieve_data_from_server(begintime, endTime);
+  int32_t seqid = send_recieve_data_from_server(beginTime, endTime);
   recv_recieve_data_from_server(_return, seqid);
 }
 
-int32_t databaseCenterConcurrentClient::send_recieve_data_from_server(const std::string& begintime, const std::string& endTime)
+int32_t databaseCenterConcurrentClient::send_recieve_data_from_server(const std::string& beginTime, const std::string& endTime)
 {
   int32_t cseqid = this->sync_.generateSeqId();
   ::apache::thrift::async::TConcurrentSendSentry sentry(&this->sync_);
   oprot_->writeMessageBegin("recieve_data_from_server", ::apache::thrift::protocol::T_CALL, cseqid);
 
   databaseCenter_recieve_data_from_server_pargs args;
-  args.begintime = &begintime;
+  args.beginTime = &beginTime;
   args.endTime = &endTime;
   args.write(oprot_);
 
@@ -814,7 +576,7 @@ int32_t databaseCenterConcurrentClient::send_recieve_data_from_server(const std:
   return cseqid;
 }
 
-void databaseCenterConcurrentClient::recv_recieve_data_from_server(std::vector<double> & _return, const int32_t seqid)
+void databaseCenterConcurrentClient::recv_recieve_data_from_server(TimeLapseData& _return, const int32_t seqid)
 {
 
   int32_t rseqid = 0;

@@ -9,6 +9,7 @@
         <group>
             <file>file:/mnt/DATA/MyProject/DemoMonitorProject/data_center/databaseTimelapseWrapper.cpp</file>
             <file>file:/mnt/DATA/MyProject/DemoMonitorProject/data_center/databaseTimelapseWrapper.h</file>
+            <file>file:/mnt/DATA/MyProject/DemoMonitorProject/data_center/main_databaseCenter_server.cpp</file>
         </group>
     </open-files>
 </project-private>

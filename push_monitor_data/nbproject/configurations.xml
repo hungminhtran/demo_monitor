@@ -42,6 +42,7 @@
                    projectFiles="true">
       <itemPath>thrift_gen_code/databaseCenter.cpp</itemPath>
       <itemPath>thrift_gen_code/databaseCenter.h</itemPath>
+      <itemPath>thrift_gen_code/databaseCenter_server.skeleton.cpp.bak</itemPath>
       <itemPath>thrift_gen_code/demo_monitor_constants.cpp</itemPath>
       <itemPath>thrift_gen_code/demo_monitor_constants.h</itemPath>
       <itemPath>thrift_gen_code/demo_monitor_types.cpp</itemPath>
@@ -122,6 +123,11 @@
       <item path="thrift_gen_code/databaseCenter.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="thrift_gen_code/databaseCenter.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="thrift_gen_code/databaseCenter_server.skeleton.cpp.bak"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="thrift_gen_code/demo_monitor_constants.cpp"
             ex="false"
@@ -211,6 +217,11 @@
       <item path="thrift_gen_code/databaseCenter.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="thrift_gen_code/databaseCenter.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="thrift_gen_code/databaseCenter_server.skeleton.cpp.bak"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="thrift_gen_code/demo_monitor_constants.cpp"
             ex="false"

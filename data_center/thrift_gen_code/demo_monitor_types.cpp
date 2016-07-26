@@ -52,27 +52,27 @@ const char* _kTAGNames[] = {
 const std::map<int, const char*> _TAG_VALUES_TO_NAMES(::apache::thrift::TEnumIterator(4, _kTAGValues, _kTAGNames), ::apache::thrift::TEnumIterator(-1, NULL, NULL));
 
 
-dataCollector::~dataCollector() throw() {
+DataCollector::~DataCollector() throw() {
 }
 
 
-void dataCollector::__set_metric(const METRIC::type val) {
+void DataCollector::__set_metric(const METRIC::type val) {
   this->metric = val;
 }
 
-void dataCollector::__set_tag(const TAG::type val) {
+void DataCollector::__set_tag(const TAG::type val) {
   this->tag = val;
 }
 
-void dataCollector::__set_object(const std::string& val) {
+void DataCollector::__set_object(const std::string& val) {
   this->object = val;
 }
 
-void dataCollector::__set_value(const double val) {
+void DataCollector::__set_value(const double val) {
   this->value = val;
 }
 
-uint32_t dataCollector::read(::apache::thrift::protocol::TProtocol* iprot) {
+uint32_t DataCollector::read(::apache::thrift::protocol::TProtocol* iprot) {
 
   apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
   uint32_t xfer = 0;
@@ -141,10 +141,10 @@ uint32_t dataCollector::read(::apache::thrift::protocol::TProtocol* iprot) {
   return xfer;
 }
 
-uint32_t dataCollector::write(::apache::thrift::protocol::TProtocol* oprot) const {
+uint32_t DataCollector::write(::apache::thrift::protocol::TProtocol* oprot) const {
   uint32_t xfer = 0;
   apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
-  xfer += oprot->writeStructBegin("dataCollector");
+  xfer += oprot->writeStructBegin("DataCollector");
 
   xfer += oprot->writeFieldBegin("metric", ::apache::thrift::protocol::T_I32, 1);
   xfer += oprot->writeI32((int32_t)this->metric);
@@ -167,7 +167,7 @@ uint32_t dataCollector::write(::apache::thrift::protocol::TProtocol* oprot) cons
   return xfer;
 }
 
-void swap(dataCollector &a, dataCollector &b) {
+void swap(DataCollector &a, DataCollector &b) {
   using ::std::swap;
   swap(a.metric, b.metric);
   swap(a.tag, b.tag);
@@ -176,14 +176,14 @@ void swap(dataCollector &a, dataCollector &b) {
   swap(a.__isset, b.__isset);
 }
 
-dataCollector::dataCollector(const dataCollector& other2) {
+DataCollector::DataCollector(const DataCollector& other2) {
   metric = other2.metric;
   tag = other2.tag;
   object = other2.object;
   value = other2.value;
   __isset = other2.__isset;
 }
-dataCollector& dataCollector::operator=(const dataCollector& other3) {
+DataCollector& DataCollector::operator=(const DataCollector& other3) {
   metric = other3.metric;
   tag = other3.tag;
   object = other3.object;
@@ -191,13 +191,159 @@ dataCollector& dataCollector::operator=(const dataCollector& other3) {
   __isset = other3.__isset;
   return *this;
 }
-void dataCollector::printTo(std::ostream& out) const {
+void DataCollector::printTo(std::ostream& out) const {
   using ::apache::thrift::to_string;
-  out << "dataCollector(";
+  out << "DataCollector(";
   out << "metric=" << to_string(metric);
   out << ", " << "tag=" << to_string(tag);
   out << ", " << "object=" << to_string(object);
   out << ", " << "value=" << to_string(value);
+  out << ")";
+}
+
+
+TimeLapseData::~TimeLapseData() throw() {
+}
+
+
+void TimeLapseData::__set_beginTime(const std::string& val) {
+  this->beginTime = val;
+}
+
+void TimeLapseData::__set_totalElements(const int32_t val) {
+  this->totalElements = val;
+}
+
+void TimeLapseData::__set_values(const std::vector<double> & val) {
+  this->values = val;
+}
+
+uint32_t TimeLapseData::read(::apache::thrift::protocol::TProtocol* iprot) {
+
+  apache::thrift::protocol::TInputRecursionTracker tracker(*iprot);
+  uint32_t xfer = 0;
+  std::string fname;
+  ::apache::thrift::protocol::TType ftype;
+  int16_t fid;
+
+  xfer += iprot->readStructBegin(fname);
+
+  using ::apache::thrift::protocol::TProtocolException;
+
+
+  while (true)
+  {
+    xfer += iprot->readFieldBegin(fname, ftype, fid);
+    if (ftype == ::apache::thrift::protocol::T_STOP) {
+      break;
+    }
+    switch (fid)
+    {
+      case 1:
+        if (ftype == ::apache::thrift::protocol::T_STRING) {
+          xfer += iprot->readString(this->beginTime);
+          this->__isset.beginTime = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 2:
+        if (ftype == ::apache::thrift::protocol::T_I32) {
+          xfer += iprot->readI32(this->totalElements);
+          this->__isset.totalElements = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      case 3:
+        if (ftype == ::apache::thrift::protocol::T_LIST) {
+          {
+            this->values.clear();
+            uint32_t _size4;
+            ::apache::thrift::protocol::TType _etype7;
+            xfer += iprot->readListBegin(_etype7, _size4);
+            this->values.resize(_size4);
+            uint32_t _i8;
+            for (_i8 = 0; _i8 < _size4; ++_i8)
+            {
+              xfer += iprot->readDouble(this->values[_i8]);
+            }
+            xfer += iprot->readListEnd();
+          }
+          this->__isset.values = true;
+        } else {
+          xfer += iprot->skip(ftype);
+        }
+        break;
+      default:
+        xfer += iprot->skip(ftype);
+        break;
+    }
+    xfer += iprot->readFieldEnd();
+  }
+
+  xfer += iprot->readStructEnd();
+
+  return xfer;
+}
+
+uint32_t TimeLapseData::write(::apache::thrift::protocol::TProtocol* oprot) const {
+  uint32_t xfer = 0;
+  apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
+  xfer += oprot->writeStructBegin("TimeLapseData");
+
+  xfer += oprot->writeFieldBegin("beginTime", ::apache::thrift::protocol::T_STRING, 1);
+  xfer += oprot->writeString(this->beginTime);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("totalElements", ::apache::thrift::protocol::T_I32, 2);
+  xfer += oprot->writeI32(this->totalElements);
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldBegin("values", ::apache::thrift::protocol::T_LIST, 3);
+  {
+    xfer += oprot->writeListBegin(::apache::thrift::protocol::T_DOUBLE, static_cast<uint32_t>(this->values.size()));
+    std::vector<double> ::const_iterator _iter9;
+    for (_iter9 = this->values.begin(); _iter9 != this->values.end(); ++_iter9)
+    {
+      xfer += oprot->writeDouble((*_iter9));
+    }
+    xfer += oprot->writeListEnd();
+  }
+  xfer += oprot->writeFieldEnd();
+
+  xfer += oprot->writeFieldStop();
+  xfer += oprot->writeStructEnd();
+  return xfer;
+}
+
+void swap(TimeLapseData &a, TimeLapseData &b) {
+  using ::std::swap;
+  swap(a.beginTime, b.beginTime);
+  swap(a.totalElements, b.totalElements);
+  swap(a.values, b.values);
+  swap(a.__isset, b.__isset);
+}
+
+TimeLapseData::TimeLapseData(const TimeLapseData& other10) {
+  beginTime = other10.beginTime;
+  totalElements = other10.totalElements;
+  values = other10.values;
+  __isset = other10.__isset;
+}
+TimeLapseData& TimeLapseData::operator=(const TimeLapseData& other11) {
+  beginTime = other11.beginTime;
+  totalElements = other11.totalElements;
+  values = other11.values;
+  __isset = other11.__isset;
+  return *this;
+}
+void TimeLapseData::printTo(std::ostream& out) const {
+  using ::apache::thrift::to_string;
+  out << "TimeLapseData(";
+  out << "beginTime=" << to_string(beginTime);
+  out << ", " << "totalElements=" << to_string(totalElements);
+  out << ", " << "values=" << to_string(values);
   out << ")";
 }
 
@@ -288,15 +434,15 @@ void swap(InvalidIOOperator &a, InvalidIOOperator &b) {
   swap(a.__isset, b.__isset);
 }
 
-InvalidIOOperator::InvalidIOOperator(const InvalidIOOperator& other4) : TException() {
-  iwhat = other4.iwhat;
-  swhy = other4.swhy;
-  __isset = other4.__isset;
+InvalidIOOperator::InvalidIOOperator(const InvalidIOOperator& other12) : TException() {
+  iwhat = other12.iwhat;
+  swhy = other12.swhy;
+  __isset = other12.__isset;
 }
-InvalidIOOperator& InvalidIOOperator::operator=(const InvalidIOOperator& other5) {
-  iwhat = other5.iwhat;
-  swhy = other5.swhy;
-  __isset = other5.__isset;
+InvalidIOOperator& InvalidIOOperator::operator=(const InvalidIOOperator& other13) {
+  iwhat = other13.iwhat;
+  swhy = other13.swhy;
+  __isset = other13.__isset;
   return *this;
 }
 void InvalidIOOperator::printTo(std::ostream& out) const {

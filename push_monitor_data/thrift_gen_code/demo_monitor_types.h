@@ -46,33 +46,35 @@ struct TAG {
 
 extern const std::map<int, const char*> _TAG_VALUES_TO_NAMES;
 
-class dataCollector;
+class DataCollector;
+
+class TimeLapseData;
 
 class InvalidIOOperator;
 
-typedef struct _dataCollector__isset {
-  _dataCollector__isset() : metric(false), tag(false), object(false), value(false) {}
+typedef struct _DataCollector__isset {
+  _DataCollector__isset() : metric(false), tag(false), object(false), value(false) {}
   bool metric :1;
   bool tag :1;
   bool object :1;
   bool value :1;
-} _dataCollector__isset;
+} _DataCollector__isset;
 
-class dataCollector {
+class DataCollector {
  public:
 
-  dataCollector(const dataCollector&);
-  dataCollector& operator=(const dataCollector&);
-  dataCollector() : metric((METRIC::type)0), tag((TAG::type)0), object(), value(0) {
+  DataCollector(const DataCollector&);
+  DataCollector& operator=(const DataCollector&);
+  DataCollector() : metric((METRIC::type)0), tag((TAG::type)0), object(), value(0) {
   }
 
-  virtual ~dataCollector() throw();
+  virtual ~DataCollector() throw();
   METRIC::type metric;
   TAG::type tag;
   std::string object;
   double value;
 
-  _dataCollector__isset __isset;
+  _DataCollector__isset __isset;
 
   void __set_metric(const METRIC::type val);
 
@@ -82,7 +84,7 @@ class dataCollector {
 
   void __set_value(const double val);
 
-  bool operator == (const dataCollector & rhs) const
+  bool operator == (const DataCollector & rhs) const
   {
     if (!(metric == rhs.metric))
       return false;
@@ -94,11 +96,11 @@ class dataCollector {
       return false;
     return true;
   }
-  bool operator != (const dataCollector &rhs) const {
+  bool operator != (const DataCollector &rhs) const {
     return !(*this == rhs);
   }
 
-  bool operator < (const dataCollector & ) const;
+  bool operator < (const DataCollector & ) const;
 
   uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
   uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
@@ -106,9 +108,67 @@ class dataCollector {
   virtual void printTo(std::ostream& out) const;
 };
 
-void swap(dataCollector &a, dataCollector &b);
+void swap(DataCollector &a, DataCollector &b);
 
-inline std::ostream& operator<<(std::ostream& out, const dataCollector& obj)
+inline std::ostream& operator<<(std::ostream& out, const DataCollector& obj)
+{
+  obj.printTo(out);
+  return out;
+}
+
+typedef struct _TimeLapseData__isset {
+  _TimeLapseData__isset() : beginTime(false), totalElements(false), values(false) {}
+  bool beginTime :1;
+  bool totalElements :1;
+  bool values :1;
+} _TimeLapseData__isset;
+
+class TimeLapseData {
+ public:
+
+  TimeLapseData(const TimeLapseData&);
+  TimeLapseData& operator=(const TimeLapseData&);
+  TimeLapseData() : beginTime(), totalElements(0) {
+  }
+
+  virtual ~TimeLapseData() throw();
+  std::string beginTime;
+  int32_t totalElements;
+  std::vector<double>  values;
+
+  _TimeLapseData__isset __isset;
+
+  void __set_beginTime(const std::string& val);
+
+  void __set_totalElements(const int32_t val);
+
+  void __set_values(const std::vector<double> & val);
+
+  bool operator == (const TimeLapseData & rhs) const
+  {
+    if (!(beginTime == rhs.beginTime))
+      return false;
+    if (!(totalElements == rhs.totalElements))
+      return false;
+    if (!(values == rhs.values))
+      return false;
+    return true;
+  }
+  bool operator != (const TimeLapseData &rhs) const {
+    return !(*this == rhs);
+  }
+
+  bool operator < (const TimeLapseData & ) const;
+
+  uint32_t read(::apache::thrift::protocol::TProtocol* iprot);
+  uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
+
+  virtual void printTo(std::ostream& out) const;
+};
+
+void swap(TimeLapseData &a, TimeLapseData &b);
+
+inline std::ostream& operator<<(std::ostream& out, const TimeLapseData& obj)
 {
   obj.printTo(out);
   return out;
