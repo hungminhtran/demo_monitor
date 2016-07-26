@@ -17,7 +17,7 @@
 #include <kchashdb.h>
 #include <string>
 #include <vector>
-#include "thrift_gen_code/demo_monitor_types.h"
+#include "../thrift_gen_code/demo_monitor_types.h"
 
 class DatabaseTimelapseWrapper {
 private:

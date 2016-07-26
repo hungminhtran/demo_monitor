@@ -6,9 +6,10 @@
 #include <thrift/transport/TTransportUtils.h>
 #include <boost/lexical_cast.hpp>
 
-#include "thrift_gen_code/databaseCenter.h"
-#include "thrift_gen_code/demo_monitor_constants.h"
+#include "../thrift_gen_code/databaseCenter.h"
+#include "../thrift_gen_code/demo_monitor_constants.h"
 #include "get_computer_info.h"
+#include <ctime>
 
 using namespace std;
 using namespace apache::thrift;
@@ -30,6 +31,9 @@ int main() {
             sleep(1);
             cpu_us = getComputerInfo.get_current_cpu_usage(METRIC::CPU_USR);
             cpu_sy = getComputerInfo.get_current_cpu_usage(METRIC::CPU_SYS);
+            
+            
+            
             for (int i = 0; i < cpu_us.size(); i++) {
                 DataCollector temp;
                 temp.__set_tag(TAG::CPU);
@@ -43,6 +47,13 @@ int main() {
                 client->send_data_to_server(temp, "");
             }
         }
+//        DataCollector temp;
+//        temp.__set_tag(TAG::CPU);
+//        temp.__set_metric(METRIC::CPU_SYS);
+//        temp.__set_object(g_demo_monitor_constants.METRIC_STR.at(METRIC::CPU_SYS) + "_" + boost::lexical_cast<string>(1));
+//        temp.__set_value(float(1.1234));
+//        client->send_data_to_server(temp, "");
+        
         transport->close();
     } catch (TException x) {
         cout << "error: " << x.what();

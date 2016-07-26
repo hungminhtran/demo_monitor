@@ -15,7 +15,7 @@
 #include <thrift/protocol/TBinaryProtocol.h>
 #include <thrift/transport/TBufferTransports.h>
 
-using namespace std;
+
 using namespace kyotocabinet;
 using namespace ::demomonitor;
 
@@ -28,7 +28,7 @@ DatabaseTimelapseWrapper::DatabaseTimelapseWrapper() {
     this->databaseName = "demomonitorTimelapseDb";
     bool status = this->myDb.open(this->databaseName, HashDB::OWRITER | HashDB::OCREATE);
     if (!status) {
-        cerr << "open database error" << endl;
+        std::cerr << "open database error" << std::endl;
     }
     return;
 }
@@ -54,21 +54,21 @@ TimeLapseData DatabaseTimelapseWrapper::dataDeserialization(std::string serializ
 }
 
 bool DatabaseTimelapseWrapper::isValueAvailable(std::string key) {
-    string temp;
+    std::string temp;
     bool result = this->myDb.get(key, &temp);
     return result;
 }
 
 TimeLapseData DatabaseTimelapseWrapper::getValues(std::string key) {
-    string temp = "";
+    std::string temp = "";
     bool isSucess = this->myDb.get(key, &temp);
     TimeLapseData result = DatabaseTimelapseWrapper::dataDeserialization(temp);
     return result;
 }
 
-bool DatabaseTimelapseWrapper::appendValue(std::string key, float value, string beginTime) {
+bool DatabaseTimelapseWrapper::appendValue(std::string key, float value, std::string beginTime) {
     TimeLapseData temp;
-    string serialized;
+    std::string serialized;
     if (this->myDb.get(key, &serialized)) {
         TimeLapseData temp = DatabaseTimelapseWrapper::dataDeserialization(serialized);
         temp.values.push_back(value);
@@ -83,13 +83,13 @@ bool DatabaseTimelapseWrapper::appendValue(std::string key, float value, string 
     return this->myDb.set(key, serialized);
 }
 
-bool DatabaseTimelapseWrapper::deleteElement(string key) {
+bool DatabaseTimelapseWrapper::deleteElement(std::string key) {
     return this->myDb.remove(key);
 }
 
 DatabaseTimelapseWrapper::~DatabaseTimelapseWrapper() {
     if (!this->myDb.close()) {
-        cerr << "close database error" << endl;
+        std::cerr << "close database error" << std::endl;
     }
     return;
 }

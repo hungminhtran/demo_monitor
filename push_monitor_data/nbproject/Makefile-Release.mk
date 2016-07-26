@@ -35,6 +35,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/_ext/87989ef3/databaseCenter.o \
+	${OBJECTDIR}/_ext/87989ef3/demo_monitor_constants.o \
+	${OBJECTDIR}/_ext/87989ef3/demo_monitor_types.o \
 	${OBJECTDIR}/get_computer_info.o \
 	${OBJECTDIR}/main_push_monitor_data_client.o \
 	${OBJECTDIR}/sigar/linux_sigar.o \
@@ -45,10 +48,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/sigar/sigar_getline.o \
 	${OBJECTDIR}/sigar/sigar_ptql.o \
 	${OBJECTDIR}/sigar/sigar_signal.o \
-	${OBJECTDIR}/sigar/sigar_util.o \
-	${OBJECTDIR}/thrift_gen_code/databaseCenter.o \
-	${OBJECTDIR}/thrift_gen_code/demo_monitor_constants.o \
-	${OBJECTDIR}/thrift_gen_code/demo_monitor_types.o
+	${OBJECTDIR}/sigar/sigar_util.o
 
 
 # C Compiler Flags
@@ -74,6 +74,21 @@ LDLIBSOPTIONS=
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/push_monitor_data: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/push_monitor_data ${OBJECTFILES} ${LDLIBSOPTIONS}
+
+${OBJECTDIR}/_ext/87989ef3/databaseCenter.o: ../thrift_gen_code/databaseCenter.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/87989ef3
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/87989ef3/databaseCenter.o ../thrift_gen_code/databaseCenter.cpp
+
+${OBJECTDIR}/_ext/87989ef3/demo_monitor_constants.o: ../thrift_gen_code/demo_monitor_constants.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/87989ef3
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/87989ef3/demo_monitor_constants.o ../thrift_gen_code/demo_monitor_constants.cpp
+
+${OBJECTDIR}/_ext/87989ef3/demo_monitor_types.o: ../thrift_gen_code/demo_monitor_types.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/87989ef3
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/87989ef3/demo_monitor_types.o ../thrift_gen_code/demo_monitor_types.cpp
 
 ${OBJECTDIR}/get_computer_info.o: get_computer_info.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -129,21 +144,6 @@ ${OBJECTDIR}/sigar/sigar_util.o: sigar/sigar_util.c
 	${MKDIR} -p ${OBJECTDIR}/sigar
 	${RM} "$@.d"
 	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/sigar/sigar_util.o sigar/sigar_util.c
-
-${OBJECTDIR}/thrift_gen_code/databaseCenter.o: thrift_gen_code/databaseCenter.cpp 
-	${MKDIR} -p ${OBJECTDIR}/thrift_gen_code
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift_gen_code/databaseCenter.o thrift_gen_code/databaseCenter.cpp
-
-${OBJECTDIR}/thrift_gen_code/demo_monitor_constants.o: thrift_gen_code/demo_monitor_constants.cpp 
-	${MKDIR} -p ${OBJECTDIR}/thrift_gen_code
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift_gen_code/demo_monitor_constants.o thrift_gen_code/demo_monitor_constants.cpp
-
-${OBJECTDIR}/thrift_gen_code/demo_monitor_types.o: thrift_gen_code/demo_monitor_types.cpp 
-	${MKDIR} -p ${OBJECTDIR}/thrift_gen_code
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/thrift_gen_code/demo_monitor_types.o thrift_gen_code/demo_monitor_types.cpp
 
 # Subprojects
 .build-subprojects:

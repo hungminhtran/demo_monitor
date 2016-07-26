@@ -20,7 +20,7 @@
 
 #include "sigar/sigar.h"
 
-#include "thrift_gen_code/demo_monitor_types.h"
+#include "../thrift_gen_code/demo_monitor_types.h"
 
 #include <string>
 
