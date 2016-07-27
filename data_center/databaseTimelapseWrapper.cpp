@@ -56,27 +56,21 @@ TimeLapseData DatabaseTimelapseWrapper::dataDeserialization(std::string serializ
     return temp2;
 }
 
-std::string DatabaseTimelapseWrapper::get_current_datetime() {
-    time_t _time = time(0); // get time now
-    struct std::tm * _tnow = localtime(&_time);
+long DatabaseTimelapseWrapper::get_current_datetime() {
+    time_t _time = time(NULL);
+    return (long)_time;
+}
+
+std::string DatabaseTimelapseWrapper::parse_date(long totalSeconds) {
     std::ostringstream out;
-    out << _tnow->tm_year << " " << _tnow->tm_mon << " " << _tnow->tm_mday << " " << _tnow->tm_hour << " " << _tnow->tm_min << " " << _tnow->tm_sec;
+    out << totalSeconds - totalSeconds % 86400;
     return out.str();
 }
 
-std::string DatabaseTimelapseWrapper::parse_date(std::string datetime) {
-    std::istringstream instr(datetime);
-    struct std::tm _mytm;
-    instr >> _mytm.tm_year >> _mytm.tm_mon >> _mytm.tm_mday;
-    std::ostringstream out;
-    out << _mytm.tm_year << " " << _mytm.tm_mon << " " << _mytm.tm_mday;
-    return out.str();
-}
-
-std::string DatabaseTimelapseWrapper::getKeyFromData(::demomonitor::DataCollector dat, std::string datetime) {
+std::string DatabaseTimelapseWrapper::getKeyFromData(::demomonitor::DataCollector dat, long totalSeconds) {
     std::ostringstream out;
     std::string _tstring = ::demomonitor::g_demo_monitor_constants.TAG_STR.at(dat.tag);
-    out << _tstring << " " << dat.object << DatabaseTimelapseWrapper::parse_date(datetime);
+    out << _tstring << "_" << dat.object << DatabaseTimelapseWrapper::parse_date(totalSeconds);
     return out.str();
 }
 
@@ -87,12 +81,19 @@ bool DatabaseTimelapseWrapper::isValueAvailable(std::string key) {
 
 TimeLapseData DatabaseTimelapseWrapper::getValues(std::string key) {
     std::string temp = "";
-    bool isSucess = this->myDb.get(key, &temp);
+    if (this->myDb.get(key, &temp)) {
     TimeLapseData result = DatabaseTimelapseWrapper::dataDeserialization(temp);
     return result;
+    }
+    else {
+        InvalidIOOperator e;
+        e.iwhat = -1;
+        e.swhy = "cannot get " + key + " from database";
+        throw e;
+    }
 }
 
-bool DatabaseTimelapseWrapper::appendValue(std::string key, float value, std::string beginDateTime) {
+bool DatabaseTimelapseWrapper::appendValue(std::string key, float value, long beginDateTime) {
     TimeLapseData temp;
     std::string serialized;
     bool status = this->myDb.get(key, &serialized);

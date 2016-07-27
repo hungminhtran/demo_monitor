@@ -19,7 +19,6 @@
     <logicalFolder name="thrift_gen_code"
                    displayName="thrift_gen_code"
                    projectFiles="true">
-      <itemPath>../thrift_gen_code/.fuse_hidden0004ebe000000006</itemPath>
       <itemPath>../thrift_gen_code/databaseCenter.cpp</itemPath>
       <itemPath>../thrift_gen_code/databaseCenter.h</itemPath>
       <itemPath>../thrift_gen_code/databaseCenter_server.skeleton.cpp.bak</itemPath>
@@ -66,11 +65,6 @@
           <commandLine>-lthrift -lboost_system -lkyotocabinet</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../thrift_gen_code/.fuse_hidden0004ebe000000006"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="../thrift_gen_code/databaseCenter.cpp"
             ex="false"
             tool="1"
@@ -158,11 +152,6 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="../thrift_gen_code/.fuse_hidden0004ebe000000006"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="../thrift_gen_code/databaseCenter.cpp"
             ex="false"
             tool="1"
@@ -236,11 +225,6 @@
           <commandLine>-lthrift -lboost_system -lkyotocabinet</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../thrift_gen_code/.fuse_hidden0004ebe000000006"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="../thrift_gen_code/databaseCenter.cpp"
             ex="false"
             tool="1"
@@ -314,11 +298,6 @@
           <commandLine>-lthrift -lboost_system -lkyotocabinet</commandLine>
         </linkerTool>
       </compileType>
-      <item path="../thrift_gen_code/.fuse_hidden0004ebe000000006"
-            ex="false"
-            tool="3"
-            flavor2="0">
-      </item>
       <item path="../thrift_gen_code/databaseCenter.cpp"
             ex="false"
             tool="1"

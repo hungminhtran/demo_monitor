@@ -27,14 +27,14 @@ private:
 public:
     static std::string dataSerialization(::demomonitor::TimeLapseData temp);
     static ::demomonitor::TimeLapseData dataDeserialization(std::string temp);
-    static std::string get_current_datetime();
-    static std::string parse_date(std::string datetime);
-    static std::string getKeyFromData(::demomonitor::DataCollector dat, std::string datetime);
+    static long get_current_datetime();
+    static std::string parse_date(long totalSeconds);
+    static std::string getKeyFromData(::demomonitor::DataCollector dat, long totalSeconds);
     DatabaseTimelapseWrapper();
     std::string getDatabaseName();
     bool isValueAvailable(std::string key);
     ::demomonitor::TimeLapseData getValues(std::string key);
-    bool appendValue(std::string key, float value, std::string beginTime);
+    bool appendValue(std::string key, float value, long beginDateTime);
     bool deleteElement(std::string key);
     void printAllElement();
     bool clearDB();

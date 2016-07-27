@@ -15,6 +15,8 @@ class demo_monitorConstants {
  public:
   demo_monitorConstants();
 
+  int32_t SLEEP_TIME;
+  int32_t TOTAL_SECS_IN_ADAY;
   std::map<METRIC::type, std::string>  METRIC_STR;
   std::map<TAG::type, std::string>  TAG_STR;
 };

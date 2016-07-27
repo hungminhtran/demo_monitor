@@ -122,16 +122,16 @@ uint32_t databaseCenter_recieve_data_from_server_args::read(::apache::thrift::pr
         }
         break;
       case 2:
-        if (ftype == ::apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readString(this->beginTime);
+        if (ftype == ::apache::thrift::protocol::T_I64) {
+          xfer += iprot->readI64(this->beginTime);
           this->__isset.beginTime = true;
         } else {
           xfer += iprot->skip(ftype);
         }
         break;
       case 3:
-        if (ftype == ::apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readString(this->endTime);
+        if (ftype == ::apache::thrift::protocol::T_I64) {
+          xfer += iprot->readI64(this->endTime);
           this->__isset.endTime = true;
         } else {
           xfer += iprot->skip(ftype);
@@ -158,12 +158,12 @@ uint32_t databaseCenter_recieve_data_from_server_args::write(::apache::thrift::p
   xfer += this->dat.write(oprot);
   xfer += oprot->writeFieldEnd();
 
-  xfer += oprot->writeFieldBegin("beginTime", ::apache::thrift::protocol::T_STRING, 2);
-  xfer += oprot->writeString(this->beginTime);
+  xfer += oprot->writeFieldBegin("beginTime", ::apache::thrift::protocol::T_I64, 2);
+  xfer += oprot->writeI64(this->beginTime);
   xfer += oprot->writeFieldEnd();
 
-  xfer += oprot->writeFieldBegin("endTime", ::apache::thrift::protocol::T_STRING, 3);
-  xfer += oprot->writeString(this->endTime);
+  xfer += oprot->writeFieldBegin("endTime", ::apache::thrift::protocol::T_I64, 3);
+  xfer += oprot->writeI64(this->endTime);
   xfer += oprot->writeFieldEnd();
 
   xfer += oprot->writeFieldStop();
@@ -185,12 +185,12 @@ uint32_t databaseCenter_recieve_data_from_server_pargs::write(::apache::thrift::
   xfer += (*(this->dat)).write(oprot);
   xfer += oprot->writeFieldEnd();
 
-  xfer += oprot->writeFieldBegin("beginTime", ::apache::thrift::protocol::T_STRING, 2);
-  xfer += oprot->writeString((*(this->beginTime)));
+  xfer += oprot->writeFieldBegin("beginTime", ::apache::thrift::protocol::T_I64, 2);
+  xfer += oprot->writeI64((*(this->beginTime)));
   xfer += oprot->writeFieldEnd();
 
-  xfer += oprot->writeFieldBegin("endTime", ::apache::thrift::protocol::T_STRING, 3);
-  xfer += oprot->writeString((*(this->endTime)));
+  xfer += oprot->writeFieldBegin("endTime", ::apache::thrift::protocol::T_I64, 3);
+  xfer += oprot->writeI64((*(this->endTime)));
   xfer += oprot->writeFieldEnd();
 
   xfer += oprot->writeFieldStop();
@@ -403,13 +403,13 @@ void databaseCenterClient::send_send_data_to_server(const DataCollector& dat)
   oprot_->getTransport()->flush();
 }
 
-void databaseCenterClient::recieve_data_from_server(TimeLapseData& _return, const DataCollector& dat, const std::string& beginTime, const std::string& endTime)
+void databaseCenterClient::recieve_data_from_server(TimeLapseData& _return, const DataCollector& dat, const int64_t beginTime, const int64_t endTime)
 {
   send_recieve_data_from_server(dat, beginTime, endTime);
   recv_recieve_data_from_server(_return);
 }
 
-void databaseCenterClient::send_recieve_data_from_server(const DataCollector& dat, const std::string& beginTime, const std::string& endTime)
+void databaseCenterClient::send_recieve_data_from_server(const DataCollector& dat, const int64_t beginTime, const int64_t endTime)
 {
   int32_t cseqid = 0;
   oprot_->writeMessageBegin("recieve_data_from_server", ::apache::thrift::protocol::T_CALL, cseqid);
@@ -663,13 +663,13 @@ void databaseCenterConcurrentClient::send_send_data_to_server(const DataCollecto
   sentry.commit();
 }
 
-void databaseCenterConcurrentClient::recieve_data_from_server(TimeLapseData& _return, const DataCollector& dat, const std::string& beginTime, const std::string& endTime)
+void databaseCenterConcurrentClient::recieve_data_from_server(TimeLapseData& _return, const DataCollector& dat, const int64_t beginTime, const int64_t endTime)
 {
   int32_t seqid = send_recieve_data_from_server(dat, beginTime, endTime);
   recv_recieve_data_from_server(_return, seqid);
 }
 
-int32_t databaseCenterConcurrentClient::send_recieve_data_from_server(const DataCollector& dat, const std::string& beginTime, const std::string& endTime)
+int32_t databaseCenterConcurrentClient::send_recieve_data_from_server(const DataCollector& dat, const int64_t beginTime, const int64_t endTime)
 {
   int32_t cseqid = this->sync_.generateSeqId();
   ::apache::thrift::async::TConcurrentSendSentry sentry(&this->sync_);

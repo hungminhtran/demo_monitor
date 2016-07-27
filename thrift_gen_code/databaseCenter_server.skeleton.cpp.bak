@@ -27,7 +27,7 @@ class databaseCenterHandler : virtual public databaseCenterIf {
     printf("send_data_to_server\n");
   }
 
-  void recieve_data_from_server(TimeLapseData& _return, const DataCollector& dat, const std::string& beginTime, const std::string& endTime) {
+  void recieve_data_from_server(TimeLapseData& _return, const DataCollector& dat, const int64_t beginTime, const int64_t endTime) {
     // Your implementation goes here
     printf("recieve_data_from_server\n");
   }

@@ -20,6 +20,7 @@ using namespace ::demomonitor;
 #include <iostream>
 #include <string>
 #include <valgrind/memcheck.h>
+#include "../thrift_gen_code/demo_monitor_constants.h"
 
 class databaseCenterHandler : virtual public databaseCenterIf {
 private:
@@ -32,13 +33,56 @@ public:
 
     void send_data_to_server(const DataCollector& dat) {
         // Your implementation goes here
-        std::string currentDatetime = DatabaseTimelapseWrapper::get_current_datetime();
-//        std::cout << currentDatetime << " " << dat << "send_data\n";
+        long currentDatetime = DatabaseTimelapseWrapper::get_current_datetime();
+        //        std::cout << currentDatetime << " " << dat << "send_data\n";
         this->databaseTimelapseWrapper.appendValue(DatabaseTimelapseWrapper::getKeyFromData(dat, currentDatetime), dat.value, currentDatetime);
     }
 
-    void recieve_data_from_server(TimeLapseData& _return, const DataCollector& dat, const std::string& beginTime, const std::string& endTime) {
+    void recieve_data_from_server(TimeLapseData& _return, const DataCollector& dat, const int64_t beginTime, const int64_t endTime) {
         // Your implementation goes here
+        _return.values.clear();
+        // Get key from begintime - begintime%86400 to endtime - endtime%86400
+        _return.beginDateTime = beginTime;
+        long _ibegin = beginTime - beginTime % g_demo_monitor_constants.TOTAL_SECS_IN_ADAY + 1;
+        long _iend = endTime - endTime % g_demo_monitor_constants.TOTAL_SECS_IN_ADAY;
+        // In the first key, get all value greater than (begintime % 86400) / sleep(time) + 1 
+        std::string _tkey = DatabaseTimelapseWrapper::getKeyFromData(dat, beginTime);
+        TimeLapseData temp;
+        try {
+            temp = databaseTimelapseWrapper.getValues(_tkey);
+        } catch (InvalidIOOperator e) {
+            temp.values.clear();
+            std::cerr << e.swhy << std::endl;
+        }
+        for (int i = beginTime % g_demo_monitor_constants.TOTAL_SECS_IN_ADAY / g_demo_monitor_constants.SLEEP_TIME + 1; i < temp.values.size(); i++) {
+            _return.values.push_back(temp.values[i]);
+        }
+        // In all key between first key and last key, get all value
+        for (int i = _ibegin; i < _iend; i += g_demo_monitor_constants.TOTAL_SECS_IN_ADAY) {
+            _tkey = DatabaseTimelapseWrapper::getKeyFromData(dat, i);
+            try {
+                temp = databaseTimelapseWrapper.getValues(_tkey);
+            } catch (InvalidIOOperator e) {
+                temp.values.clear();
+                std::cerr << e.swhy << std::endl;
+            }
+            _return.values.insert(_return.values.end(), temp.values.begin(), temp.values.end());
+        }
+        // In the end key, get all value less than (endtime % 86400) / sleep(time) -1
+        _tkey = DatabaseTimelapseWrapper::getKeyFromData(dat, endTime);
+        try {
+            temp = databaseTimelapseWrapper.getValues(_tkey);
+        } catch (InvalidIOOperator e) {
+            temp.values.clear();
+            std::cerr << e.swhy << std::endl;
+        }
+        int maxTempSize = endTime % g_demo_monitor_constants.TOTAL_SECS_IN_ADAY / g_demo_monitor_constants.SLEEP_TIME + 1;
+        if (temp.values.size() < maxTempSize)
+            maxTempSize = temp.values.size();
+        for (int i = 0; i < maxTempSize; i++) {
+            _return.values.push_back(temp.values[i]);
+        }
+        std::cout<<_return<<std::endl;
         printf("receive_data_from_server\n");
     }
 
@@ -52,7 +96,6 @@ public:
 };
 
 int main(int argc, char **argv) {
-    std::cout << "data center is running.." << std::endl;
     int port = 9090;
     shared_ptr<databaseCenterHandler> handler(new databaseCenterHandler());
     shared_ptr<TProcessor> processor(new databaseCenterProcessor(handler));
@@ -61,6 +104,7 @@ int main(int argc, char **argv) {
     shared_ptr<TProtocolFactory> protocolFactory(new TBinaryProtocolFactory());
 
     TSimpleServer server(processor, serverTransport, transportFactory, protocolFactory);
+    std::cout << "data center is running.." << std::endl;
     server.serve();
     return 0;
 }

@@ -36,6 +36,10 @@ import org.slf4j.LoggerFactory;
 @SuppressWarnings({"cast", "rawtypes", "serial", "unchecked"})
 public class demo_monitorConstants {
 
+  public static final int SLEEP_TIME = 4;
+
+  public static final int TOTAL_SECS_IN_ADAY = 86400;
+
   public static final Map<METRIC,String> METRIC_STR = new HashMap<METRIC,String>();
   static {
     METRIC_STR.put(demomonitor.METRIC.CPU_SYS, "sys");
@@ -51,8 +55,8 @@ public class demo_monitorConstants {
 
   public static final Map<TAG,String> TAG_STR = new HashMap<TAG,String>();
   static {
-    TAG_STR.put(demomonitor.TAG.RAM, "ram");
     TAG_STR.put(demomonitor.TAG.CPU, "cpu");
+    TAG_STR.put(demomonitor.TAG.RAM, "ram");
     TAG_STR.put(demomonitor.TAG.DISK, "disk");
     TAG_STR.put(demomonitor.TAG.NET, "network");
   }

@@ -127,16 +127,16 @@ class TimeLapseData {
 
   TimeLapseData(const TimeLapseData&);
   TimeLapseData& operator=(const TimeLapseData&);
-  TimeLapseData() : beginDateTime() {
+  TimeLapseData() : beginDateTime(0) {
   }
 
   virtual ~TimeLapseData() throw();
-  std::string beginDateTime;
+  int64_t beginDateTime;
   std::vector<double>  values;
 
   _TimeLapseData__isset __isset;
 
-  void __set_beginDateTime(const std::string& val);
+  void __set_beginDateTime(const int64_t val);
 
   void __set_values(const std::vector<double> & val);
 

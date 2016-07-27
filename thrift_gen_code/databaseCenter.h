@@ -22,7 +22,7 @@ class databaseCenterIf {
  public:
   virtual ~databaseCenterIf() {}
   virtual void send_data_to_server(const DataCollector& dat) = 0;
-  virtual void recieve_data_from_server(TimeLapseData& _return, const DataCollector& dat, const std::string& beginTime, const std::string& endTime) = 0;
+  virtual void recieve_data_from_server(TimeLapseData& _return, const DataCollector& dat, const int64_t beginTime, const int64_t endTime) = 0;
   virtual void debug() = 0;
 };
 
@@ -56,7 +56,7 @@ class databaseCenterNull : virtual public databaseCenterIf {
   void send_data_to_server(const DataCollector& /* dat */) {
     return;
   }
-  void recieve_data_from_server(TimeLapseData& /* _return */, const DataCollector& /* dat */, const std::string& /* beginTime */, const std::string& /* endTime */) {
+  void recieve_data_from_server(TimeLapseData& /* _return */, const DataCollector& /* dat */, const int64_t /* beginTime */, const int64_t /* endTime */) {
     return;
   }
   void debug() {
@@ -125,21 +125,21 @@ class databaseCenter_recieve_data_from_server_args {
 
   databaseCenter_recieve_data_from_server_args(const databaseCenter_recieve_data_from_server_args&);
   databaseCenter_recieve_data_from_server_args& operator=(const databaseCenter_recieve_data_from_server_args&);
-  databaseCenter_recieve_data_from_server_args() : beginTime(), endTime() {
+  databaseCenter_recieve_data_from_server_args() : beginTime(0), endTime(0) {
   }
 
   virtual ~databaseCenter_recieve_data_from_server_args() throw();
   DataCollector dat;
-  std::string beginTime;
-  std::string endTime;
+  int64_t beginTime;
+  int64_t endTime;
 
   _databaseCenter_recieve_data_from_server_args__isset __isset;
 
   void __set_dat(const DataCollector& val);
 
-  void __set_beginTime(const std::string& val);
+  void __set_beginTime(const int64_t val);
 
-  void __set_endTime(const std::string& val);
+  void __set_endTime(const int64_t val);
 
   bool operator == (const databaseCenter_recieve_data_from_server_args & rhs) const
   {
@@ -169,8 +169,8 @@ class databaseCenter_recieve_data_from_server_pargs {
 
   virtual ~databaseCenter_recieve_data_from_server_pargs() throw();
   const DataCollector* dat;
-  const std::string* beginTime;
-  const std::string* endTime;
+  const int64_t* beginTime;
+  const int64_t* endTime;
 
   uint32_t write(::apache::thrift::protocol::TProtocol* oprot) const;
 
@@ -303,8 +303,8 @@ class databaseCenterClient : virtual public databaseCenterIf {
   }
   void send_data_to_server(const DataCollector& dat);
   void send_send_data_to_server(const DataCollector& dat);
-  void recieve_data_from_server(TimeLapseData& _return, const DataCollector& dat, const std::string& beginTime, const std::string& endTime);
-  void send_recieve_data_from_server(const DataCollector& dat, const std::string& beginTime, const std::string& endTime);
+  void recieve_data_from_server(TimeLapseData& _return, const DataCollector& dat, const int64_t beginTime, const int64_t endTime);
+  void send_recieve_data_from_server(const DataCollector& dat, const int64_t beginTime, const int64_t endTime);
   void recv_recieve_data_from_server(TimeLapseData& _return);
   void debug();
   void send_debug();
@@ -369,7 +369,7 @@ class databaseCenterMultiface : virtual public databaseCenterIf {
     ifaces_[i]->send_data_to_server(dat);
   }
 
-  void recieve_data_from_server(TimeLapseData& _return, const DataCollector& dat, const std::string& beginTime, const std::string& endTime) {
+  void recieve_data_from_server(TimeLapseData& _return, const DataCollector& dat, const int64_t beginTime, const int64_t endTime) {
     size_t sz = ifaces_.size();
     size_t i = 0;
     for (; i < (sz - 1); ++i) {
@@ -420,8 +420,8 @@ class databaseCenterConcurrentClient : virtual public databaseCenterIf {
   }
   void send_data_to_server(const DataCollector& dat);
   void send_send_data_to_server(const DataCollector& dat);
-  void recieve_data_from_server(TimeLapseData& _return, const DataCollector& dat, const std::string& beginTime, const std::string& endTime);
-  int32_t send_recieve_data_from_server(const DataCollector& dat, const std::string& beginTime, const std::string& endTime);
+  void recieve_data_from_server(TimeLapseData& _return, const DataCollector& dat, const int64_t beginTime, const int64_t endTime);
+  int32_t send_recieve_data_from_server(const DataCollector& dat, const int64_t beginTime, const int64_t endTime);
   void recv_recieve_data_from_server(TimeLapseData& _return, const int32_t seqid);
   void debug();
   void send_debug();

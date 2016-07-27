@@ -206,7 +206,7 @@ TimeLapseData::~TimeLapseData() throw() {
 }
 
 
-void TimeLapseData::__set_beginDateTime(const std::string& val) {
+void TimeLapseData::__set_beginDateTime(const int64_t val) {
   this->beginDateTime = val;
 }
 
@@ -236,8 +236,8 @@ uint32_t TimeLapseData::read(::apache::thrift::protocol::TProtocol* iprot) {
     switch (fid)
     {
       case 1:
-        if (ftype == ::apache::thrift::protocol::T_STRING) {
-          xfer += iprot->readString(this->beginDateTime);
+        if (ftype == ::apache::thrift::protocol::T_I64) {
+          xfer += iprot->readI64(this->beginDateTime);
           this->__isset.beginDateTime = true;
         } else {
           xfer += iprot->skip(ftype);
@@ -280,8 +280,8 @@ uint32_t TimeLapseData::write(::apache::thrift::protocol::TProtocol* oprot) cons
   apache::thrift::protocol::TOutputRecursionTracker tracker(*oprot);
   xfer += oprot->writeStructBegin("TimeLapseData");
 
-  xfer += oprot->writeFieldBegin("beginDateTime", ::apache::thrift::protocol::T_STRING, 1);
-  xfer += oprot->writeString(this->beginDateTime);
+  xfer += oprot->writeFieldBegin("beginDateTime", ::apache::thrift::protocol::T_I64, 1);
+  xfer += oprot->writeI64(this->beginDateTime);
   xfer += oprot->writeFieldEnd();
 
   xfer += oprot->writeFieldBegin("values", ::apache::thrift::protocol::T_LIST, 2);
